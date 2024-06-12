@@ -1,11 +1,11 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-users').DataTable({
+            $('#datatable-admin').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ url('users-datatable') }}',
+                ajax: '{{ url('users-datatable', $role) }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -22,15 +22,60 @@
                         data: 'email',
                         name: 'email'
                     },
-
                     {
-                        data: 'role',
-                        name: 'role'
+                        data: 'action',
+                        name: 'action'
+                    }
+                ]
+            });
+            $('#datatable-kepala-bidang').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: '{{ url('users-datatable', $role) }}',
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'avatar',
+                        name: 'avatar'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
                     },
                     {
                         data: 'action',
                         name: 'action'
                     }
+                ]
+            });
+            $('#datatable-perusahaan').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: '{{ url('users-datatable', $role) }}',
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'avatar',
+                        name: 'avatar'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
                 ]
             });
             $('.create-new').click(function() {

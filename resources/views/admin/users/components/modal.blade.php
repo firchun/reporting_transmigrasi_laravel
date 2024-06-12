@@ -20,11 +20,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="formUserRole" class="form-label">Role</label>
-                        <select class="form-control" id="formUserRole" name="role">
-                            <option value="User">User</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Operator">Operator</option>
-                        </select>
+                        <input type="text" class="form-control" id="formUserRole" name="role"
+                            value="{{ $role }}" readonly>
+
                     </div>
 
                 </form>
@@ -54,14 +52,22 @@
                         <label for="formUserEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="formUserEmail" name="email" required>
                     </div>
+                    @if ($role == 'Bidang')
+                        <div class="mb-3">
+                            <label for="formUserRole" class="form-label">Pilih Bidang</label>
+                            <select name="id_bidang" class="form-select" id="formUserIdBidang">
+                                @foreach (App\Models\Bidang::all() as $item)
+                                    <option value="{{ $item->nama_bidang }}">{{ $item->nama_bidang }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <label for="formUserRole" class="form-label">Role</label>
-                        <select class="form-control" id="formUserRole" name="role">
-                            <option value="User">User</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Operator">Operator</option>
-                        </select>
+                        <input type="text" class="form-control" id="formUserRole" name="role"
+                            value="{{ $role }}" readonly>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">

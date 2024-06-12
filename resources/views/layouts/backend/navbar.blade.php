@@ -14,7 +14,8 @@
                 <input type="text" class="form-control border-0 shadow-none"
                     placeholder="Search{{ asset('backend_theme/') }}."
                     aria-label="Search{{ asset('backend_theme/') }}." /> --}}
-                <a href="{{ url('/') }}" class="btn btn-outline-primary">Homepage</a>
+                {{-- <a href="{{ url('/') }}" class="btn btn-outline-primary">Homepage</a> --}}
+                <h3 class="text-primary m-0">E-Report</h3>
             </div>
         </div>
         <!-- /Search -->
