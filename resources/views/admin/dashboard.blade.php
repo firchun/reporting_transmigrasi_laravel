@@ -10,42 +10,46 @@
         <h3 class="text-primary">{{ env('APP_DESC') }}</h3>
     </div>
     <hr>
-    <div class="row justify-content-center align-items-center">
-        @include('admin.dashboard_component.card1', [
-            'count' => $admin,
-            'title' => 'Admin',
-            'subtitle' => 'Total akun admin',
-            'color' => 'primary',
-            'icon' => 'user',
-        ])
-        @include('admin.dashboard_component.card1', [
-            'count' => $bidang,
-            'title' => 'Kepala Bidang',
-            'subtitle' => 'Total akun kepala bidang',
-            'color' => 'primary',
-            'icon' => 'user',
-        ])
-        @include('admin.dashboard_component.card1', [
-            'count' => $perusahaan,
-            'title' => 'Perusahaan',
-            'subtitle' => 'Total akun perusahaan',
-            'color' => 'primary',
-            'icon' => 'user',
-        ])
-        @include('admin.dashboard_component.card1', [
-            'count' => $data_bidang,
-            'title' => 'Bidang',
-            'subtitle' => 'Total bidang',
-            'color' => 'warning',
-            'icon' => 'folder',
-        ])
-        @include('admin.dashboard_component.card1', [
-            'count' => $data_pendidikan,
-            'title' => 'Pendidikan',
-            'subtitle' => 'Total data pendidikan',
-            'color' => 'warning',
-            'icon' => 'folder',
-        ])
+    @if (Auth::user()->role == 'Admin')
+        <div class="row justify-content-center align-items-center">
+            @include('admin.dashboard_component.card1', [
+                'count' => $admin,
+                'title' => 'Admin',
+                'subtitle' => 'Total akun admin',
+                'color' => 'primary',
+                'icon' => 'user',
+            ])
+            @include('admin.dashboard_component.card1', [
+                'count' => $bidang,
+                'title' => 'Kepala Bidang',
+                'subtitle' => 'Total akun kepala bidang',
+                'color' => 'primary',
+                'icon' => 'user',
+            ])
+            @include('admin.dashboard_component.card1', [
+                'count' => $perusahaan,
+                'title' => 'Perusahaan',
+                'subtitle' => 'Total akun perusahaan',
+                'color' => 'primary',
+                'icon' => 'user',
+            ])
+            @include('admin.dashboard_component.card1', [
+                'count' => $data_bidang,
+                'title' => 'Bidang',
+                'subtitle' => 'Total bidang',
+                'color' => 'warning',
+                'icon' => 'folder',
+            ])
+            @include('admin.dashboard_component.card1', [
+                'count' => $data_pendidikan,
+                'title' => 'Pendidikan',
+                'subtitle' => 'Total data pendidikan',
+                'color' => 'warning',
+                'icon' => 'folder',
+            ])
 
-    </div>
+        </div>
+    @elseif(Auth::user()->role == 'Perusahaan')
+        @include('admin.dashboard_component.perusahaan')
+    @endif
 @endsection

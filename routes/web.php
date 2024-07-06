@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PendidikanController;
+use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TenagaAsingController;
+use App\Http\Controllers\TenagaLokalController;
 use App\Http\Controllers\UserController;
 use App\Models\Bidang;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +40,26 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
     Route::get('/customers/edit/{id}',  [CustomerController::class, 'edit'])->name('customers.edit');
     Route::delete('/customers/delete/{id}',  [CustomerController::class, 'destroy'])->name('customers.delete');
     Route::get('/customers-datatable', [CustomerController::class, 'getCustomersDataTable']);
+});
+Route::middleware(['auth:web', 'role:Perusahaan'])->group(function () {
+    //perusahaan management
+    Route::post('/perusahaan/store',  [PerusahaanController::class, 'store'])->name('perusahaan.store');
+    Route::get('/perusahaan/perusahaan',  [PerusahaanController::class, 'perusahaan'])->name('perusahaan.perusahaan');
+    //tka management
+    Route::get('/tka', [TenagaAsingController::class, 'index'])->name('tka');
+    Route::post('/tka/store',  [TenagaAsingController::class, 'store'])->name('tka.store');
+    Route::get('/tka/edit/{id}',  [TenagaAsingController::class, 'edit'])->name('tka.edit');
+    Route::delete('/tka/delete/{id}',  [TenagaAsingController::class, 'destroy'])->name('tka.delete');
+    Route::get('/tka-datatable/{id_perusahaan}', [TenagaAsingController::class, 'gettkaDataTable']);
+    //tkl management
+    Route::get('/tkl', [TenagaLokalController::class, 'index'])->name('tkl');
+    Route::post('/tkl/store',  [TenagaLokalController::class, 'store'])->name('tkl.store');
+    Route::get('/tkl/edit/{id}',  [TenagaLokalController::class, 'edit'])->name('tkl.edit');
+    Route::delete('/tkl/delete/{id}',  [TenagaLokalController::class, 'destroy'])->name('tkl.delete');
+    Route::get('/tkl-datatable/{id_perusahaan}', [TenagaLokalController::class, 'gettklDataTable']);
+    //laporan management
+    Route::get('/laporan/perusahaan/tkl', [LaporanController::class, 'perusahaan_tkl'])->name('laporan.perusahaan.tkl');
+    Route::get('/laporan/perusahaan/tka', [LaporanController::class, 'perusahaan_tka'])->name('laporan.perusahaan.tka');
 });
 Route::middleware(['auth:web', 'role:Admin'])->group(function () {
     //bidang

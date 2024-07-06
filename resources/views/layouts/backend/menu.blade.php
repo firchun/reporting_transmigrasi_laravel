@@ -26,42 +26,101 @@
                 <div data-i18n="Analytics">Dashboard {{ Auth::user()->role }}</div>
             </a>
         </li>
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Master Data</span>
-        </li>
-        <li class="menu-item {{ request()->is('bidang') ? 'active' : '' }}">
-            <a href="{{ url('/bidang') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-folder"></i>
-                <div data-i18n="Analytics">Data Bidang</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->is('pendidikan') ? 'active' : '' }}">
-            <a href="{{ url('/pendidikan') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-folder"></i>
-                <div data-i18n="Analytics">Data Pendidikan</div>
-            </a>
-        </li>
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pengguna</span>
-        </li>
-        <li class="menu-item {{ request()->is('users/admin') ? 'active' : '' }}">
-            <a href="{{ url('/users/admin') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">Admin</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->is('users/kepala-bidang') ? 'active' : '' }}">
-            <a href="{{ url('/users/kepala-bidang') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">Kepala Bidang</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->is('users/perusahaan') ? 'active' : '' }}">
-            <a href="{{ url('/users/perusahaan') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">perusahaan</div>
-            </a>
-        </li>
+        @if (Auth::user()->role == 'Admin')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Master Data</span>
+            </li>
+            <li class="menu-item {{ request()->is('bidang') ? 'active' : '' }}">
+                <a href="{{ url('/bidang') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Data Bidang</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('pendidikan') ? 'active' : '' }}">
+                <a href="{{ url('/pendidikan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Jenjang Pendidikan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('pendidikan') ? 'active' : '' }}">
+                <a href="{{ url('/pendidikan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Jenjang Karyawan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('pendidikan') ? 'active' : '' }}">
+                <a href="{{ url('/pendidikan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Status Karyawan</div>
+                </a>
+            </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Pengguna</span>
+            </li>
+            <li class="menu-item {{ request()->is('users/admin') ? 'active' : '' }}">
+                <a href="{{ url('/users/admin') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Analytics">Admin</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('users/kepala-bidang') ? 'active' : '' }}">
+                <a href="{{ url('/users/kepala-bidang') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Analytics">Kepala Bidang</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('users/perusahaan') ? 'active' : '' }}">
+                <a href="{{ url('/users/perusahaan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <div data-i18n="Analytics">perusahaan</div>
+                </a>
+            </li>
+        @elseif(Auth::user()->role == 'Perusahaan')
+            @php
+                $perusahaan = App\Models\Perusahaan::where('id_user', Auth::id());
+            @endphp
+            @if ($perusahaan)
+                <li class="menu-header small text-uppercase">
+                    <span class="menu-header-text">Perusahaan</span>
+                </li>
+                <li class="menu-item {{ request()->is('perusahaan/perusahaan') ? 'active' : '' }}">
+                    <a href="{{ url('/perusahaan/perusahaan') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-buildings"></i>
+                        <div data-i18n="Analytics">Data Perusahaan</div>
+                    </a>
+                </li>
+                <li class="menu-header small text-uppercase">
+                    <span class="menu-header-text">Tenaga Kerja</span>
+                </li>
+                <li class="menu-item {{ request()->is('tkl') ? 'active' : '' }}">
+                    <a href="{{ url('/tkl') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-user"></i>
+                        <div data-i18n="Analytics">Tenaga Kerja Lokal</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('tka') ? 'active' : '' }}">
+                    <a href="{{ url('/tka') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-user"></i>
+                        <div data-i18n="Analytics">Tenaga Kerja Asing</div>
+                    </a>
+                </li>
+                <li class="menu-header small text-uppercase">
+                    <span class="menu-header-text">Laporan</span>
+                </li>
+                <li class="menu-item {{ request()->is('laporan/perusahaan/tkl') ? 'active' : '' }}">
+                    <a href="{{ url('/laporan/perusahaan/tkl') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-folder"></i>
+                        <div data-i18n="Analytics">Tenaga Kerja Lokal</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('laporan/perusahaan/tka') ? 'active' : '' }}">
+                    <a href="{{ url('/laporan/perusahaan/tka') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-folder"></i>
+                        <div data-i18n="Analytics">Tenaga Kerja Asing</div>
+                    </a>
+                </li>
+            @endif
+        @endif
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Akun</span>
         </li>
