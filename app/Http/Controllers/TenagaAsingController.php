@@ -29,6 +29,17 @@ class TenagaAsingController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+    public function getalltkaDataTable()
+    {
+        $TenagaAsing = TenagaAsing::with(['perusahaan'])->orderByDesc('id');
+
+        return DataTables::of($TenagaAsing)
+            ->addColumn('action', function ($TenagaAsing) {
+                return view('admin.tka.components.actions', compact('TenagaAsing'));
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
     public function store(Request $request)
     {
         $request->validate([

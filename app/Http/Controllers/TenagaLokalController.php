@@ -29,6 +29,17 @@ class TenagaLokalController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+    public function getalltklDataTable()
+    {
+        $TenagaLokal = TenagaLokal::with(['pendidikan', 'perusahaan'])->orderByDesc('id');
+
+        return DataTables::of($TenagaLokal)
+            ->addColumn('action', function ($TenagaLokal) {
+                return view('admin.tkl.components.actions', compact('TenagaLokal'));
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -38,7 +49,7 @@ class TenagaLokalController extends Controller
             'mulai_kerja' => 'string|max:255',
             'no_kartu_kuning' => 'string|max:255',
             'jenis_kelamin' => 'string|max:255',
-            'tanaga_kerja' => 'string|max:255',
+            'tenaga_kerja' => 'string|max:255',
             'status_karyawan' => 'string|max:255',
             'tampat_lahir' => 'string|max:255',
             'tanggal_lahir' => 'string|max:255',
@@ -51,9 +62,9 @@ class TenagaLokalController extends Controller
             'id_pendidikan' => $request->input('id_pendidikan'),
             'nama' => $request->input('nama'),
             'mulai_kerja' => $request->input('mulai_kerja'),
-            'no_kertu_kuning' => $request->input('no_kertu_kuning'),
+            'no_kartu_kuning' => $request->input('no_kartu_kuning'),
             'jenis_kelamin' => $request->input('jenis_kelamin'),
-            'tanaga_kerja' => $request->input('tanaga_kerja'),
+            'tenaga_kerja' => $request->input('tenaga_kerja'),
             'status_karyawan' => $request->input('status_karyawan'),
             'tempat_lahir' => $request->input('tempat_lahir'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),

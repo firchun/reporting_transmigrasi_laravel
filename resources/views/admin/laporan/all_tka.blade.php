@@ -22,17 +22,18 @@
                     </div>
                 </div>
                 <div class="card-datatable table-responsive">
-                    <table id="datatable-tkl" class="table table-hover table-bordered display table-sm">
+                    <table id="datatable-tka" class="table table-hover table-bordered display table-sm">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
-                                <th>mulai kerja</th>
-                                <th>status Karyawan</th>
-                                <th>jabatan</th>
-                                <th>Pendidikan</th>
-
+                                <th>Kebangsaan</th>
+                                <th>Jabatan</th>
+                                <th>No. Passport</th>
+                                <th>No. Kitas</th>
+                                <th>No. Imta</th>
+                                <th>Sponsor</th>
                             </tr>
                         </thead>
 
@@ -41,11 +42,12 @@
                                 <th>ID</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
-                                <th>mulai kerja</th>
-                                <th>status Karyawan</th>
-                                <th>jabatan</th>
-                                <th>Pendidikan</th>
-
+                                <th>Kebangsaan</th>
+                                <th>Jabatan</th>
+                                <th>No. Passport</th>
+                                <th>No. Kitas</th>
+                                <th>No. Imta</th>
+                                <th>Sponsor</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -57,11 +59,11 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-tkl').DataTable({
+            $('#datatable-tka').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ url('tkl-datatable', $perusahaan->id) }}',
+                ajax: '{{ url('all-tka-datatable') }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -71,28 +73,34 @@
                         data: 'nama',
                         name: 'nama'
                     },
-
                     {
                         data: 'jenis_kelamin',
                         name: 'jenis_kelamin'
                     },
                     {
-                        data: 'mulai_kerja',
-                        name: 'mulai_kerja'
-                    },
-                    {
-                        data: 'status_karyawan',
-                        name: 'status_karyawan'
+                        data: 'kebangsaan',
+                        name: 'kebangsaan'
                     },
                     {
                         data: 'jabatan',
                         name: 'jabatan'
                     },
                     {
-                        data: 'pendidikan.nama_pendidikan',
-                        name: 'pendidikan.nama_pendidikan'
+                        data: 'no_passport',
+                        name: 'no_passport'
                     },
-
+                    {
+                        data: 'no_kitas',
+                        name: 'no_kitas'
+                    },
+                    {
+                        data: 'no_imta',
+                        name: 'no_imta'
+                    },
+                    {
+                        data: 'sponsor',
+                        name: 'sponsor'
+                    },
 
                 ],
                 dom: 'lBfrtip',
@@ -125,13 +133,11 @@
                     }
                 ]
             });
-            $('.create-new').click(function() {
-                $('#create').modal('show');
-            });
             $('.refresh').click(function() {
-                $('#datatable-tkl').DataTable().ajax.reload();
+                $('#datatable-tka').DataTable().ajax.reload();
             });
-        })
+
+        });
     </script>
     <!-- JS DataTables Buttons -->
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>

@@ -28,10 +28,15 @@
                     </div>
                 </div>
                 <div class="card-datatable table-responsive">
-                    <table id="datatable-pendidikan" class="table table-hover table-bordered display">
+                    <table id="datatable-tkl" class="table table-hover table-bordered display table-sm">
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Nama</th>
+                                <th>Gender</th>
+                                <th>mulai kerja</th>
+                                <th>status Karyawan</th>
+                                <th>jabatan</th>
                                 <th>Pendidikan</th>
                                 <th>Action</th>
                             </tr>
@@ -40,6 +45,11 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
+                                <th>Nama</th>
+                                <th>Gender</th>
+                                <th>mulai kerja</th>
+                                <th>status Karyawan</th>
+                                <th>jabatan</th>
                                 <th>Pendidikan</th>
                                 <th>Action</th>
                             </tr>
@@ -49,6 +59,6 @@
             </div>
         </div>
     </div>
-    @include('admin.pendidikan.components.modal')
+    @include('admin.tkl.components.modal')
 @endsection
-@include('admin.pendidikan.script')
+@include('admin.tkl.script')

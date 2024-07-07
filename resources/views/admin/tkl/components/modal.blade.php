@@ -8,20 +8,79 @@
             </div>
             <div class="modal-body">
                 <!-- Form for Create and Edit -->
-                <form id="userForm">
-                    <input type="hidden" id="formPendidikanId" name="id">
+                <form id="updateTKLForm">
+                    <input type="hidden" id="updateId" name="id">
+                    <input type="hidden" name="id_perusahaan" id="updateIdPerusahaan">
                     <div class="mb-3">
-                        <label for="formCustomerName" class="form-label">Name Pendidikan</label>
-                        <input type="text" class="form-control" id="formCustomerNamaPendidikan"
-                            name="nama_pendidikan" required>
+                        <label for="formTKANama" class="form-label">Nama</label>
+                        <input type="text" class="form-control" id="updateNama" name="nama" required>
                     </div>
                     <div class="mb-3">
-                        <label for="formCustomerPhone" class="form-label">Kepanjangan</label>
-                        <input type="text" class="form-control" id="formCustomerKepanjangan" name="kepanjangan"
+                        <label for="formTKANama" class="form-label">Jenis Kelamin</label>
+                        <select class="form-select" name="jenis_kelamin" id="updateJenisKelamin">
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Pendidikan Terakhir</label>
+                        <select class="form-select" name="id_pendidikan" id="updateIdPendidikan">
+                            @foreach (App\Models\Pendidikan::all() as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama_pendidikan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Mulai Kerja</label>
+                        <input type="date" class="form-control" name="mulai_kerja" id="updateMulaiKerja" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">No. Kartu Kuning</label>
+                        <input type="text" class="form-control" name="no_kartu_kuning" id="updateNoKartuKuning"
                             required>
                     </div>
-
-
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Tenaga Kerja</label>
+                        <select class="form-select" name="tenaga_kerja" id="updateTenagaKerja">
+                            <option value="OAP">Orang Asli Papua</option>
+                            <option value="NON-OAP">non-Orang Asli Papua</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Status Karyawan</label>
+                        <select class="form-select" name="status_karyawan" id="updateStatusKaryawan">
+                            <option value="Karyawan Tetap">Karyawan Tetap</option>
+                            <option value="Karyawan Kontrak">Karyawan Kontrak</option>
+                            <option value="Tenaga Ahli">Tenaga Ahli</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Tempat Lahir</label>
+                                <input type="text" class="form-control" name="tempat_lahir" id="updateTempatLahir"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="updateTanggalLahir" name="tanggal_lahir"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Jabatan</label>
+                        <input type="text" class="form-control" name="jabatan" id="updateJabatan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">LPTKS</label>
+                        <select class="form-select" name="LPTKS" id="updateLPTKS">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -40,19 +99,75 @@
             </div>
             <div class="modal-body">
                 <!-- Form for Create and Edit -->
-                <form id="createUserForm">
+                <form id="createTKLForm">
+                    <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id ?? '' }}">
                     <div class="mb-3">
-                        <label for="formCustomerName" class="form-label">Nama Pendidikan</label>
-                        <input type="text" class="form-control" id="formCustomerNamaPendidikan"
-                            name="nama_pendidikan" required>
+                        <label for="formTKANama" class="form-label">Nama</label>
+                        <input type="text" class="form-control" name="nama" required>
                     </div>
                     <div class="mb-3">
-                        <label for="formCustomerPhone" class="form-label">Kepanjangan</label>
-                        <input type="text" class="form-control" id="formCustomerKepanjangan" name="kepanjangan"
-                            value="-" required>
+                        <label for="formTKANama" class="form-label">Jenis Kelamin</label>
+                        <select class="form-select" name="jenis_kelamin">
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
+                        </select>
                     </div>
-
-
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Pendidikan Terakhir</label>
+                        <select class="form-select" name="id_pendidikan">
+                            @foreach (App\Models\Pendidikan::all() as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama_pendidikan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Mulai Kerja</label>
+                        <input type="date" class="form-control" name="mulai_kerja" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">No. Kartu Kuning</label>
+                        <input type="text" class="form-control" name="no_kartu_kuning" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Tenaga Kerja</label>
+                        <select class="form-select" name="tenaga_kerja">
+                            <option value="OAP">Orang Asli Papua</option>
+                            <option value="NON-OAP">non-Orang Asli Papua</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Status Karyawan</label>
+                        <select class="form-select" name="status_karyawan">
+                            <option value="Karyawan Tetap">Karyawan Tetap</option>
+                            <option value="Karyawan Kontrak">Karyawan Kontrak</option>
+                            <option value="Tenaga Ahli">Tenaga Ahli</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Tempat Lahir</label>
+                                <input type="text" class="form-control" name="tempat_lahir" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Tanggal Lahir</label>
+                                <input type="date" class="form-control" name="tanggal_lahir" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">Jabatan</label>
+                        <input type="text" class="form-control" name="jabatan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formTKANama" class="form-label">LPTKS</label>
+                        <select class="form-select" name="LPTKS">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

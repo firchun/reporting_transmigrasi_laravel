@@ -1,19 +1,40 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-pendidikan').DataTable({
+            $('#datatable-tkl').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ url('pendidikan-datatable') }}',
+                ajax: '{{ url('tkl-datatable', $perusahaan->id) }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
 
                     {
-                        data: 'pendidikan',
-                        name: 'pendidikan'
+                        data: 'nama',
+                        name: 'nama'
+                    },
+
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
+                    },
+                    {
+                        data: 'mulai_kerja',
+                        name: 'mulai_kerja'
+                    },
+                    {
+                        data: 'status_karyawan',
+                        name: 'status_karyawan'
+                    },
+                    {
+                        data: 'jabatan',
+                        name: 'jabatan'
+                    },
+                    {
+                        data: 'pendidikan.nama_pendidikan',
+                        name: 'pendidikan.nama_pendidikan'
                     },
 
                     {
@@ -26,17 +47,26 @@
                 $('#create').modal('show');
             });
             $('.refresh').click(function() {
-                $('#datatable-pendidikan').DataTable().ajax.reload();
+                $('#datatable-tkl').DataTable().ajax.reload();
             });
             window.editCustomer = function(id) {
                 $.ajax({
                     type: 'GET',
-                    url: '/pendidikan/edit/' + id,
+                    url: '/tkl/edit/' + id,
                     success: function(response) {
-                        $('#customersModalLabel').text('Edit Customer');
-                        $('#formPendidikanId').val(response.id);
-                        $('#formCustomerNamaPendidikan').val(response.nama_pendidikan);
-                        $('#formCustomerKepanjangan').val(response.kepanjangan);
+                        $('#updateId').val(response.id);
+                        $('#updateIdPerusahaan').val(response.id_perusahaan);
+                        $('#updateIdPendidikan').val(response.id_pendidikan);
+                        $('#updateNama').val(response.nama);
+                        $('#updateJenisKelamin').val(response.jenis_kelamin);
+                        $('#updateMulaiKerja').val(response.mulai_kerja);
+                        $('#updateNoKartuKuning').val(response.no_kartu_kuning);
+                        $('#updateTanagaKerja').val(response.tenaga_kerja);
+                        $('#updateStatusKaryawan').val(response.status_karyawan);
+                        $('#updateTempatLahir').val(response.tempat_lahir);
+                        $('#updateTanggalLahir').val(response.tanggal_lahir);
+                        $('#updateJabatan').val(response.jabatan);
+                        $('#updateLPTKS').val(response.LPTKS);
                         $('#customersModal').modal('show');
                     },
                     error: function(xhr) {
@@ -45,11 +75,11 @@
                 });
             };
             $('#saveCustomerBtn').click(function() {
-                var formData = $('#userForm').serialize();
+                var formData = $('#updateTKLForm').serialize();
 
                 $.ajax({
                     type: 'POST',
-                    url: '/pendidikan/store',
+                    url: '/tkl/store',
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -57,7 +87,7 @@
                     success: function(response) {
                         alert(response.message);
                         // Refresh DataTable setelah menyimpan perubahan
-                        $('#datatable-pendidikan').DataTable().ajax.reload();
+                        $('#datatable-tkl').DataTable().ajax.reload();
                         $('#customersModal').modal('hide');
                     },
                     error: function(xhr) {
@@ -66,20 +96,18 @@
                 });
             });
             $('#createCustomerBtn').click(function() {
-                var formData = $('#createUserForm').serialize();
+                var formData = $('#createTKLForm').serialize();
 
                 $.ajax({
                     type: 'POST',
-                    url: '/pendidikan/store',
+                    url: '/tkl/store',
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
                         alert(response.message);
-                        $('#formCustomerNamaPendidikan').val('');
-                        $('#formCustomerKepanjangan').val('');
-                        $('#datatable-pendidikan').DataTable().ajax.reload();
+                        $('#datatable-tkl').DataTable().ajax.reload();
                         $('#create').modal('hide');
                     },
                     error: function(xhr) {
@@ -91,13 +119,13 @@
                 if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
                     $.ajax({
                         type: 'DELETE',
-                        url: '/pendidikan/delete/' + id,
+                        url: '/tkl/delete/' + id,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
                             // alert(response.message);
-                            $('#datatable-pendidikan').DataTable().ajax.reload();
+                            $('#datatable-tkl').DataTable().ajax.reload();
                         },
                         error: function(xhr) {
                             alert('Terjadi kesalahan: ' + xhr.responseText);

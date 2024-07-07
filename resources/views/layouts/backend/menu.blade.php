@@ -42,16 +42,26 @@
                     <div data-i18n="Analytics">Jenjang Pendidikan</div>
                 </a>
             </li>
-            <li class="menu-item {{ request()->is('pendidikan') ? 'active' : '' }}">
-                <a href="{{ url('/pendidikan') }}" class="menu-link">
+
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Laporan</span>
+            </li>
+            <li class="menu-item {{ request()->is('laporan/admin/perusahaan') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/perusahaan') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-folder"></i>
-                    <div data-i18n="Analytics">Jenjang Karyawan</div>
+                    <div data-i18n="Analytics">Laporan Perusahaan</div>
                 </a>
             </li>
-            <li class="menu-item {{ request()->is('pendidikan') ? 'active' : '' }}">
-                <a href="{{ url('/pendidikan') }}" class="menu-link">
+            <li class="menu-item {{ request()->is('laporan/admin/tka') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/tka') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-folder"></i>
-                    <div data-i18n="Analytics">Status Karyawan</div>
+                    <div data-i18n="Analytics">Laporan TKA</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('laporan/admin/tkl') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/tkl') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Laporan TKL</div>
                 </a>
             </li>
             <li class="menu-header small text-uppercase">
@@ -120,6 +130,28 @@
                     </a>
                 </li>
             @endif
+        @elseif(Auth::user()->role == 'Bidang')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Laporan</span>
+            </li>
+            <li class="menu-item {{ request()->is('laporan/admin/perusahaan') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/perusahaan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Laporan Perusahaan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('laporan/admin/tka') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/tka') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Laporan TKA</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('laporan/admin/tkl') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/tkl') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Laporan TKL</div>
+                </a>
+            </li>
         @endif
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Akun</span>

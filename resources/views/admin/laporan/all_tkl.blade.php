@@ -59,9 +59,9 @@
         $(function() {
             $('#datatable-tkl').DataTable({
                 processing: true,
-                serverSide: true,
+                serverSide: false,
                 responsive: true,
-                ajax: '{{ url('tkl-datatable', $perusahaan->id) }}',
+                ajax: '{{ url('all-tkl-datatable') }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -125,9 +125,7 @@
                     }
                 ]
             });
-            $('.create-new').click(function() {
-                $('#create').modal('show');
-            });
+
             $('.refresh').click(function() {
                 $('#datatable-tkl').DataTable().ajax.reload();
             });

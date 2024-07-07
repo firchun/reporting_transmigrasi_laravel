@@ -13,7 +13,7 @@ class LaporanController extends Controller
         $perusahaan = Perusahaan::where('id_user', Auth::id())->first();
         $data = [
             'title' => 'Laporan Data Tenaga Asing : ' . $perusahaan->nama_perusahaan,
-
+            'perusahaan' => Perusahaan::where('id_user', Auth::id())->first(),
         ];
         return view('admin.laporan.perusahaan_tka', $data);
     }
@@ -22,8 +22,30 @@ class LaporanController extends Controller
         $perusahaan = Perusahaan::where('id_user', Auth::id())->first();
         $data = [
             'title' => 'Laporan Data Tenaga Lokal : ' . $perusahaan->nama_perusahaan,
+            'perusahaan' => Perusahaan::where('id_user', Auth::id())->first(),
 
         ];
         return view('admin.laporan.perusahaan_tkl', $data);
+    }
+    public function all_tka()
+    {
+        $data = [
+            'title' => 'Laporan Data Tenaga Asing ',
+        ];
+        return view('admin.laporan.all_tka', $data);
+    }
+    public function all_tkl()
+    {
+        $data = [
+            'title' => 'Laporan Data Tenaga Lokal ',
+        ];
+        return view('admin.laporan.all_tkl', $data);
+    }
+    public function all_perusahaan()
+    {
+        $data = [
+            'title' => 'Laporan Data perusahaan ',
+        ];
+        return view('admin.laporan.all_perusahaan', $data);
     }
 }

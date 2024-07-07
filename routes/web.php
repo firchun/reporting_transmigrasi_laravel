@@ -83,4 +83,26 @@ Route::middleware(['auth:web', 'role:Admin'])->group(function () {
     Route::get('/users/edit/{id}',  [UserController::class, 'edit'])->name('users.edit');
     Route::delete('/users/delete/{id}',  [UserController::class, 'destroy'])->name('users.delete');
     Route::get('/users-datatable/{role}', [UserController::class, 'getUsersDataTable']);
+    //perusahaan
+    Route::get('/perusahaan-datatable', [PerusahaanController::class, 'getPerusahaanDataTable']);
+    //tka
+    Route::get('/all-tka-datatable', [TenagaAsingController::class, 'getalltkaDataTable']);
+    //tkl
+    Route::get('/all-tkl-datatable', [TenagaLokalController::class, 'getalltklDataTable']);
+    //laporan
+    Route::get('/laporan/admin/perusahaan', [LaporanController::class, 'all_perusahaan'])->name('laporan.admin.perusahaan');
+    Route::get('/laporan/admin/tkl', [LaporanController::class, 'all_tkl'])->name('laporan.admin.tkl');
+    Route::get('/laporan/admin/tka', [LaporanController::class, 'all_tka'])->name('laporan.admin.tka');
+});
+Route::middleware(['auth:web', 'role:Admin,Bidang'])->group(function () {
+    //perusahaan
+    Route::get('/perusahaan-datatable', [PerusahaanController::class, 'getPerusahaanDataTable']);
+    //tka
+    Route::get('/all-tka-datatable', [TenagaAsingController::class, 'getalltkaDataTable']);
+    //tkl
+    Route::get('/all-tkl-datatable', [TenagaLokalController::class, 'getalltklDataTable']);
+    //laporan
+    Route::get('/laporan/admin/perusahaan', [LaporanController::class, 'all_perusahaan'])->name('laporan.admin.perusahaan');
+    Route::get('/laporan/admin/tkl', [LaporanController::class, 'all_tkl'])->name('laporan.admin.tkl');
+    Route::get('/laporan/admin/tka', [LaporanController::class, 'all_tka'])->name('laporan.admin.tka');
 });

@@ -22,30 +22,28 @@
                     </div>
                 </div>
                 <div class="card-datatable table-responsive">
-                    <table id="datatable-tkl" class="table table-hover table-bordered display table-sm">
+                    <table id="datatable-perusahaan" class="table table-hover table-bordered display table-sm">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nama</th>
-                                <th>Gender</th>
-                                <th>mulai kerja</th>
-                                <th>status Karyawan</th>
-                                <th>jabatan</th>
-                                <th>Pendidikan</th>
-
+                                <th>Nama Perusahaan</th>
+                                <th>Alamat Perusahaan</th>
+                                <th>Tahun Berdiri</th>
+                                <th>Jenis Usaha</th>
+                                <th>Tenaga Kerja Asing</th>
+                                <th>Tenaga Kerja Lokal</th>
                             </tr>
                         </thead>
 
                         <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>Nama</th>
-                                <th>Gender</th>
-                                <th>mulai kerja</th>
-                                <th>status Karyawan</th>
-                                <th>jabatan</th>
-                                <th>Pendidikan</th>
-
+                                <th>Nama Perusahaan</th>
+                                <th>Alamat Perusahaan</th>
+                                <th>Tahun Berdiri</th>
+                                <th>Jenis Usaha</th>
+                                <th>Tenaga Kerja Asing</th>
+                                <th>Tenaga Kerja Lokal</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -57,42 +55,39 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-tkl').DataTable({
+            $('#datatable-perusahaan').DataTable({
                 processing: true,
-                serverSide: true,
-                responsive: true,
-                ajax: '{{ url('tkl-datatable', $perusahaan->id) }}',
+                serverSide: false,
+                responsive: false,
+                ajax: '{{ url('perusahaan-datatable') }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
-
                     {
-                        data: 'nama',
-                        name: 'nama'
-                    },
-
-                    {
-                        data: 'jenis_kelamin',
-                        name: 'jenis_kelamin'
+                        data: 'nama_perusahaan',
+                        name: 'nama_perusahaan'
                     },
                     {
-                        data: 'mulai_kerja',
-                        name: 'mulai_kerja'
+                        data: 'alamat_perusahaan',
+                        name: 'alamat_perusahaan'
                     },
                     {
-                        data: 'status_karyawan',
-                        name: 'status_karyawan'
+                        data: 'tahun_berdiri',
+                        name: 'tahun_berdiri'
                     },
                     {
-                        data: 'jabatan',
-                        name: 'jabatan'
+                        data: 'jenis_usaha',
+                        name: 'jenis_usaha'
                     },
                     {
-                        data: 'pendidikan.nama_pendidikan',
-                        name: 'pendidikan.nama_pendidikan'
+                        data: 'jumlah_tka',
+                        name: 'jumlah_tka'
                     },
-
+                    {
+                        data: 'jumlah_tkl',
+                        name: 'jumlah_tkl'
+                    },
 
                 ],
                 dom: 'lBfrtip',
@@ -125,11 +120,9 @@
                     }
                 ]
             });
-            $('.create-new').click(function() {
-                $('#create').modal('show');
-            });
+
             $('.refresh').click(function() {
-                $('#datatable-tkl').DataTable().ajax.reload();
+                $('#datatable-perusahaan').DataTable().ajax.reload();
             });
         })
     </script>
