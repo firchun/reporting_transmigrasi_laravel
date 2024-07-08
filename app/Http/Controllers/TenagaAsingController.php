@@ -29,10 +29,13 @@ class TenagaAsingController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
-    public function getalltkaDataTable()
+    public function getalltkaDataTable(Request $request)
     {
+        $id_perusahaan = $request->input('id_perusahaan');
         $TenagaAsing = TenagaAsing::with(['perusahaan'])->orderByDesc('id');
-
+        if ($id_perusahaan) {
+            $TenagaAsing->where('id_perusahaan', $id_perusahaan);
+        }
         return DataTables::of($TenagaAsing)
             ->addColumn('action', function ($TenagaAsing) {
                 return view('admin.tka.components.actions', compact('TenagaAsing'));

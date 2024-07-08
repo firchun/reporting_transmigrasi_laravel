@@ -10,7 +10,7 @@
         <h3 class="text-primary">{{ env('APP_DESC') }}</h3>
     </div>
     <hr>
-    @if (Auth::user()->role == 'Admin')
+    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Bidang')
         <div class="row justify-content-center align-items-center">
             @include('admin.dashboard_component.card1', [
                 'count' => $admin,
@@ -19,13 +19,7 @@
                 'color' => 'primary',
                 'icon' => 'user',
             ])
-            @include('admin.dashboard_component.card1', [
-                'count' => $bidang,
-                'title' => 'Kepala Bidang',
-                'subtitle' => 'Total akun kepala bidang',
-                'color' => 'primary',
-                'icon' => 'user',
-            ])
+
             @include('admin.dashboard_component.card1', [
                 'count' => $perusahaan,
                 'title' => 'Perusahaan',

@@ -30,12 +30,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Master Data</span>
             </li>
-            <li class="menu-item {{ request()->is('bidang') ? 'active' : '' }}">
-                <a href="{{ url('/bidang') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-folder"></i>
-                    <div data-i18n="Analytics">Data Bidang</div>
-                </a>
-            </li>
+
             <li class="menu-item {{ request()->is('pendidikan') ? 'active' : '' }}">
                 <a href="{{ url('/pendidikan') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-folder"></i>

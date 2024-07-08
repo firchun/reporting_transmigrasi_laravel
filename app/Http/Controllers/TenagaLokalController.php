@@ -29,10 +29,13 @@ class TenagaLokalController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
-    public function getalltklDataTable()
+    public function getalltklDataTable(Request $request)
     {
+        $id_perusahaan = $request->input('id_perusahaan');
         $TenagaLokal = TenagaLokal::with(['pendidikan', 'perusahaan'])->orderByDesc('id');
-
+        if ($id_perusahaan) {
+            $TenagaLokal->where('id_perusahaan', $id_perusahaan);
+        }
         return DataTables::of($TenagaLokal)
             ->addColumn('action', function ($TenagaLokal) {
                 return view('admin.tkl.components.actions', compact('TenagaLokal'));

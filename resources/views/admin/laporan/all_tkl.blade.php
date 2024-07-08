@@ -21,17 +21,45 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <div style="margin-left:24px; margin-right: 24px;">
+                    <strong>Filter Data</strong>
+                    <div class="d-flex justify-content-center align-items-center row gap-3 gap-md-0">
+                        <div class="col-md-8 col-12">
+                            <div class="input-group">
+                                <span class="input-group-text">Perusahaan</span>
+                                <select id="selectPerusahaan" name="id_perusahaan" class="form-select">
+                                    <option value="">Semua</option>
+                                    @foreach (App\Models\Perusahaan::all() as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_perusahaan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-12 ">
+                            <button type="button" id="filter" class="btn btn-primary"><i class="bx bx-filter"></i>
+                                Filter</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class="card-datatable table-responsive">
                     <table id="datatable-tkl" class="table table-hover table-bordered display table-sm">
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Perusahaan</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
                                 <th>mulai kerja</th>
                                 <th>status Karyawan</th>
                                 <th>jabatan</th>
+                                <th>No Kartu Kuning</th>
+                                <th>Tenaga Kerja</th>
+                                <th>Tempat lahir</th>
+                                <th>tanggal lahir</th>
                                 <th>Pendidikan</th>
+                                <th>LPTKS</th>
 
                             </tr>
                         </thead>
@@ -39,13 +67,18 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
+                                <th>Perusahaan</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
                                 <th>mulai kerja</th>
                                 <th>status Karyawan</th>
                                 <th>jabatan</th>
+                                <th>No Kartu Kuning</th>
+                                <th>Tenaga Kerja</th>
+                                <th>Tempat lahir</th>
+                                <th>tanggal lahir</th>
                                 <th>Pendidikan</th>
-
+                                <th>LPTKS</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -57,77 +90,169 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-tkl').DataTable({
-                processing: true,
-                serverSide: false,
-                responsive: true,
-                ajax: '{{ url('all-tkl-datatable') }}',
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-
-                    {
-                        data: 'nama',
-                        name: 'nama'
-                    },
-
-                    {
-                        data: 'jenis_kelamin',
-                        name: 'jenis_kelamin'
-                    },
-                    {
-                        data: 'mulai_kerja',
-                        name: 'mulai_kerja'
-                    },
-                    {
-                        data: 'status_karyawan',
-                        name: 'status_karyawan'
-                    },
-                    {
-                        data: 'jabatan',
-                        name: 'jabatan'
-                    },
-                    {
-                        data: 'pendidikan.nama_pendidikan',
-                        name: 'pendidikan.nama_pendidikan'
-                    },
-
-
-                ],
-                dom: 'lBfrtip',
-                buttons: [{
-                        extend: 'pdf',
-                        text: '<i class="bx bxs-file-pdf"></i> PDF',
-                        className: 'btn-danger mx-3',
-                        orientation: 'potrait',
-                        title: '{{ $title }}',
-                        pageSize: 'A4',
-                        exportOptions: {
-                            columns: ':visible'
+            @if (Auth::user()->role = 'Admin')
+                var table = $('#datatable-tkl').DataTable({
+                    processing: true,
+                    serverSide: false,
+                    responsive: true,
+                    ajax: '{{ url('all-tkl-datatable') }}',
+                    columns: [{
+                            data: 'id',
+                            name: 'id'
                         },
-                        customize: function(doc) {
-                            doc.defaultStyle.fontSize = 8;
-                            doc.styles.tableHeader.fontSize = 8;
-                            doc.styles.tableHeader.fillColor = '#2a6908';
 
-
+                        {
+                            data: 'perusahaan.nama_perusahaan',
+                            name: 'perusahaan.nama_perusahaan'
                         },
-                        header: true
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        text: '<i class="bx bxs-file-export"></i> Excel',
-                        className: 'btn-success',
-                        exportOptions: {
-                            columns: ':visible'
+                        {
+                            data: 'nama',
+                            name: 'nama'
+                        },
+
+                        {
+                            data: 'jenis_kelamin',
+                            name: 'jenis_kelamin'
+                        },
+                        {
+                            data: 'mulai_kerja',
+                            name: 'mulai_kerja'
+                        },
+                        {
+                            data: 'status_karyawan',
+                            name: 'status_karyawan'
+                        },
+                        {
+                            data: 'jabatan',
+                            name: 'jabatan'
+                        },
+                        {
+                            data: 'no_kartu_kuning',
+                            name: 'no_kartu_kuning'
+                        },
+                        {
+                            data: 'tenaga_kerja',
+                            name: 'tenaga_kerja'
+                        },
+                        {
+                            data: 'tempat_lahir',
+                            name: 'tempat_lahir'
+                        },
+                        {
+                            data: 'tanggal_lahir',
+                            name: 'tanggal_lahir'
+                        },
+                        {
+                            data: 'pendidikan.nama_pendidikan',
+                            name: 'pendidikan.nama_pendidikan'
+                        },
+                        {
+                            data: 'LPTKS',
+                            name: 'LPTKS'
+                        },
+
+                    ],
+                    dom: 'lBfrtip',
+                    buttons: [{
+                            extend: 'pdf',
+                            text: '<i class="bx bxs-file-pdf"></i> PDF',
+                            className: 'btn-danger mx-3',
+                            orientation: 'potrait',
+                            title: '{{ $title }}',
+                            pageSize: 'A4',
+                            exportOptions: {
+                                columns: ':visible'
+                            },
+                            customize: function(doc) {
+                                doc.defaultStyle.fontSize = 8;
+                                doc.styles.tableHeader.fontSize = 8;
+                                doc.styles.tableHeader.fillColor = '#2a6908';
+
+
+                            },
+                            header: true
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="bx bxs-file-export"></i> Excel',
+                            className: 'btn-success',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
                         }
-                    }
-                ]
-            });
+                    ]
+                });
+            @else
+                var table = $('#datatable-tkl').DataTable({
+                    processing: true,
+                    serverSide: false,
+                    responsive: true,
+                    ajax: '{{ url('all-tkl-datatable') }}',
+                    columns: [{
+                            data: 'id',
+                            name: 'id'
+                        },
 
+                        {
+                            data: 'perusahaan.nama_perusahaan',
+                            name: 'perusahaan.nama_perusahaan'
+                        },
+                        {
+                            data: 'nama',
+                            name: 'nama'
+                        },
+
+                        {
+                            data: 'jenis_kelamin',
+                            name: 'jenis_kelamin'
+                        },
+                        {
+                            data: 'mulai_kerja',
+                            name: 'mulai_kerja'
+                        },
+                        {
+                            data: 'status_karyawan',
+                            name: 'status_karyawan'
+                        },
+                        {
+                            data: 'jabatan',
+                            name: 'jabatan'
+                        },
+                        {
+                            data: 'no_kartu_kuning',
+                            name: 'no_kartu_kuning'
+                        },
+                        {
+                            data: 'tenaga_kerja',
+                            name: 'tenaga_kerja'
+                        },
+                        {
+                            data: 'tempat_lahir',
+                            name: 'tempat_lahir'
+                        },
+                        {
+                            data: 'tanggal_lahir',
+                            name: 'tanggal_lahir'
+                        },
+                        {
+                            data: 'pendidikan.nama_pendidikan',
+                            name: 'pendidikan.nama_pendidikan'
+                        },
+                        {
+                            data: 'LPTKS',
+                            name: 'LPTKS'
+                        },
+
+                    ]
+                });
+            @endif
             $('.refresh').click(function() {
                 $('#datatable-tkl').DataTable().ajax.reload();
+            });
+            $('#filter').click(function() {
+                table.ajax.url('{{ url('all-tkl-datatable') }}?perusahaan=' + $(
+                        '#selectPerusahaan')
+                    .val()).load();
             });
         })
     </script>
