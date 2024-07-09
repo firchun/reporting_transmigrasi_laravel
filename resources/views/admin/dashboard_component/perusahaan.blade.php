@@ -1,7 +1,7 @@
 @php
     $perusahaan = App\Models\Perusahaan::where('id_user', Auth::id());
 @endphp
-@if ($perusahaan)
+@if ($perusahaan->count() != 0)
     <div class="row justify-content-center">
 
         @include('admin.dashboard_component.card1', [

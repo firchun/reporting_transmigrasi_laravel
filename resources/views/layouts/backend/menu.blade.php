@@ -84,7 +84,7 @@
             @php
                 $perusahaan = App\Models\Perusahaan::where('id_user', Auth::id());
             @endphp
-            @if ($perusahaan)
+            @if ($perusahaan->count() != 0)
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Perusahaan</span>
                 </li>
