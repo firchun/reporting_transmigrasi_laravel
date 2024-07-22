@@ -59,6 +59,12 @@
                     <div data-i18n="Analytics">Laporan TKL</div>
                 </a>
             </li>
+            <li class="menu-item {{ request()->is('laporan/admin/lowongan-kerja') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/lowongan-kerja') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Laporan Loker</div>
+                </a>
+            </li>
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Pengguna</span>
             </li>
@@ -109,6 +115,12 @@
                         <div data-i18n="Analytics">Tenaga Kerja Asing</div>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->is('lowongan-kerja') ? 'active' : '' }}">
+                    <a href="{{ url('/lowongan-kerja') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-door-open"></i>
+                        <div data-i18n="Analytics">Lowongan Kerja</div>
+                    </a>
+                </li>
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Laporan</span>
                 </li>
@@ -145,6 +157,12 @@
                 <a href="{{ url('/laporan/admin/tkl') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-folder"></i>
                     <div data-i18n="Analytics">Laporan TKL</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('laporan/admin/lowongan-kerja') ? 'active' : '' }}">
+                <a href="{{ url('/laporan/admin/lowongan-kerja') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Laporan Loker</div>
                 </a>
             </li>
         @endif

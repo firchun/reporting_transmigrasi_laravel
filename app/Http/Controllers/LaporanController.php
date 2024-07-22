@@ -48,4 +48,11 @@ class LaporanController extends Controller
         ];
         return view('admin.laporan.all_perusahaan', $data);
     }
+    public function all_lowongan_kerja()
+    {
+        $data = [
+            'title' => 'Laporan Data lowongan kerja ',
+        ];
+        return view('admin.laporan.all_lowongan_kerja', $data);
+    }
 }

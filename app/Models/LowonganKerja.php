@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Imta extends Model
+class LowonganKerja extends Model
 {
     use HasFactory;
-    protected $table = 'imta';
+    protected $table = 'lowongan_kerja';
     protected $guarded = [];
-    public function tenaga_asing(): BelongsTo
+
+    public function perusahaan(): BelongsTo
     {
-        return $this->belongsTo(TenagaAsing::class, 'id_tenaga_asing');
+        return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
 }

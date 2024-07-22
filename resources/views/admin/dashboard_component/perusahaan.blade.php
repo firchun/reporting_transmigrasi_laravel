@@ -5,14 +5,14 @@
     <div class="row justify-content-center">
 
         @include('admin.dashboard_component.card1', [
-            'count' => 0,
+            'count' => $tka,
             'title' => 'TKA',
             'subtitle' => 'Tenaga Kerja Asing',
             'color' => 'warning',
             'icon' => 'user',
         ])
         @include('admin.dashboard_component.card1', [
-            'count' => 0,
+            'count' => $tkl,
             'title' => 'TKL',
             'subtitle' => 'Tenaga Kerja Lokal',
             'color' => 'success',

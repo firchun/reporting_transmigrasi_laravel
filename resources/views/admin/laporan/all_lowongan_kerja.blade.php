@@ -22,17 +22,16 @@
                     </div>
                 </div>
                 <div class="card-datatable table-responsive">
-                    <table id="datatable-perusahaan" class="table table-hover table-bordered display table-sm">
+                    <table id="datatable-loker" class="table table-hover table-bordered display table-sm">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Tanggal</th>
-                                <th>Nama Perusahaan</th>
-                                <th>Alamat Perusahaan</th>
-                                <th>Tahun Berdiri</th>
-                                <th>Jenis Usaha</th>
-                                <th>Tenaga Kerja Asing</th>
-                                <th>Tenaga Kerja Lokal</th>
+                                <th>Perusahaan</th>
+                                <th>Brosur</th>
+                                <th>Tanggal Buka</th>
+                                <th>Tanggal Tutup</th>
+                                <th>Posisi/jabatan</th>
                             </tr>
                         </thead>
 
@@ -40,12 +39,11 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tanggal</th>
-                                <th>Nama Perusahaan</th>
-                                <th>Alamat Perusahaan</th>
-                                <th>Tahun Berdiri</th>
-                                <th>Jenis Usaha</th>
-                                <th>Tenaga Kerja Asing</th>
-                                <th>Tenaga Kerja Lokal</th>
+                                <th>Perusahaan</th>
+                                <th>Brosur</th>
+                                <th>Tanggal Buka</th>
+                                <th>Tanggal Tutup</th>
+                                <th>Posisi/jabatan</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -57,11 +55,11 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-perusahaan').DataTable({
+            $('#datatable-loker').DataTable({
                 processing: true,
                 serverSide: false,
                 responsive: false,
-                ajax: '{{ url('perusahaan-datatable') }}',
+                ajax: '{{ url('all-lowongan-kerja-datatable') }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -74,28 +72,24 @@
                         }
                     },
                     {
-                        data: 'nama_perusahaan',
-                        name: 'nama_perusahaan'
+                        data: 'perusahaan.nama_perusahaan',
+                        name: 'perusahaan.nama_perusahaan'
                     },
                     {
-                        data: 'alamat_perusahaan',
-                        name: 'alamat_perusahaan'
+                        data: 'brosur',
+                        name: 'brosur'
                     },
                     {
-                        data: 'tahun_berdiri',
-                        name: 'tahun_berdiri'
+                        data: 'tanggal_buka',
+                        name: 'tanggal_buka'
                     },
                     {
-                        data: 'jenis_usaha',
-                        name: 'jenis_usaha'
+                        data: 'tanggal_tutup',
+                        name: 'tanggal_tutup'
                     },
                     {
-                        data: 'jumlah_tka',
-                        name: 'jumlah_tka'
-                    },
-                    {
-                        data: 'jumlah_tkl',
-                        name: 'jumlah_tkl'
+                        data: 'posisi',
+                        name: 'posisi'
                     },
 
                 ],
@@ -129,11 +123,10 @@
                     }
                 ]
             });
-
-            $('.refresh').click(function() {
-                $('#datatable-perusahaan').DataTable().ajax.reload();
-            });
-        })
+        });
+        $('.refresh').click(function() {
+            $('#datatable-loker').DataTable().ajax.reload();
+        });
     </script>
     <!-- JS DataTables Buttons -->
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -38,9 +38,13 @@
                         <label for="formTKANama" class="form-label">No. KITAS</label>
                         <input type="text" class="form-control" name="no_kitas" id="updateNoKitas" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" id="updateImta">
                         <label for="formTKANama" class="form-label">No. IMTA</label>
-                        <input type="text" class="form-control" name="no_imta" id="updateNoImta" required>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="no_imta[]" id="updateNoImta" required>
+                            <button type="button" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Sponsor</label>
@@ -68,18 +72,24 @@
                     <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id ?? '' }}">
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Nama</label>
-                        <input type="text" class="form-control" name="nama" required>
+                        <input type="text" class="form-control " name="nama" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="formTKANama" class="form-label">Jenis Kelamin</label>
-                        <select class="form-select" name="jenis_kelamin">
-                            <option value="L">Laki-laki</option>
-                            <option value="P">Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="formTKANama" class="form-label">Kebangsaan</label>
-                        <input type="text" class="form-control" name="kebangsaan" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" name="jenis_kelamin">
+                                    <option value="L">Laki-laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Kebangsaan</label>
+                                <input type="text" class="form-control" name="kebangsaan" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Jabatan</label>
@@ -93,10 +103,15 @@
                         <label for="formTKANama" class="form-label">No. KITAS</label>
                         <input type="text" class="form-control" name="no_kitas" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="formTKANama" class="form-label">No. IMTA</label>
-                        <input type="text" class="form-control" name="no_imta" required>
+                    <div class="mb-3" id="createImta">
+                        <label for="updateNoImta" class="form-label">No. IMTA</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="no_imta[]" required>
+                            <button type="button" class="btn btn-sm btn-primary btn-tambah"><i
+                                    class="bx bx-plus"></i></button>
+                        </div>
                     </div>
+
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Sponsor</label>
                         <input type="text" class="form-control" name="sponsor" required>

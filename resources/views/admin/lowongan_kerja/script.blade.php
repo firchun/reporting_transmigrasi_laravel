@@ -1,47 +1,30 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-tka').DataTable({
+            $('#datatable-loker').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ url('tka-datatable', $perusahaan->id) }}',
+                ajax: '{{ url('lowongan-kerja-datatable', $perusahaan->id) }}',
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
-
                     {
-                        data: 'nama',
-                        name: 'nama'
+                        data: 'brosur',
+                        name: 'brosur'
                     },
                     {
-                        data: 'jenis_kelamin',
-                        name: 'jenis_kelamin'
+                        data: 'tanggal_buka',
+                        name: 'tanggal_buka'
                     },
                     {
-                        data: 'kebangsaan',
-                        name: 'kebangsaan'
+                        data: 'tanggal_tutup',
+                        name: 'tanggal_tutup'
                     },
                     {
-                        data: 'jabatan',
-                        name: 'jabatan'
-                    },
-                    {
-                        data: 'no_passport',
-                        name: 'no_passport'
-                    },
-                    {
-                        data: 'no_kitas',
-                        name: 'no_kitas'
-                    },
-                    {
-                        data: 'no_imta',
-                        name: 'no_imta'
-                    },
-                    {
-                        data: 'sponsor',
-                        name: 'sponsor'
+                        data: 'posisi',
+                        name: 'posisi'
                     },
 
                     {
@@ -54,23 +37,23 @@
                 $('#create').modal('show');
             });
             $('.refresh').click(function() {
-                $('#datatable-tka').DataTable().ajax.reload();
+                $('#datatable-loker').DataTable().ajax.reload();
             });
             window.editCustomer = function(id) {
                 $.ajax({
                     type: 'GET',
-                    url: '/tka/edit/' + id,
+                    url: '/lowongan-kerja/edit/' + id,
                     success: function(response) {
-                        $('#idData').val(response.id);
-                        $('#updateIdPerusahaan').val(response.id_perusahaan);
-                        $('#updateNama').val(response.nama);
-                        $('#updateJenisKelamin').val(response.jenis_kelamin);
-                        $('#updateKebangsaan').val(response.kebangsaan);
-                        $('#updateJabatan').val(response.jabatan);
-                        $('#updateNoPassport').val(response.no_passport);
-                        $('#updateNoKitas').val(response.no_kitas);
-                        $('#updateNoImta').val(response.no_imta);
-                        $('#updateSponsor').val(response.sponsor);
+                        $('#formUpdateCustomerId').val(response.id);
+                        $('#formUpdateCustomerIdPerusahaan').val(response.id);
+                        $('#formUpdateCustomerPosisi').val(response.posisi);
+                        $('#formUpdateCustomerTanggalBuka').val(response.tanggal_buka);
+                        $('#formUpdateCustomerTanggalTutup').val(response.tanggal_tutup);
+                        $('#formUpdateCustomerKualifikasi').val(response.kualifikasi);
+                        $('#formUpdateCustomerPersyaratan').val(response.persyaratan);
+                        $('#formUpdateCustomerPengrimanBerkas').val(response.pengiriman_berkas);
+                        $('#formUpdateCustomerDeskripsiPekerjaan').val(response
+                            .deskripsi_pekerjaan);
                         $('#customersModal').modal('show');
                     },
                     error: function(xhr) {
@@ -79,11 +62,10 @@
                 });
             };
             $('#saveCustomerBtn').click(function() {
-                var formData = $('#updateTKAForm').serialize();
-
+                var formData = $('#userForm').serialize();
                 $.ajax({
                     type: 'POST',
-                    url: '/tka/store',
+                    url: '/lowongan-kerja/store',
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -91,7 +73,7 @@
                     success: function(response) {
                         alert(response.message);
                         // Refresh DataTable setelah menyimpan perubahan
-                        $('#datatable-tka').DataTable().ajax.reload();
+                        $('#datatable-loker').DataTable().ajax.reload();
                         $('#customersModal').modal('hide');
                     },
                     error: function(xhr) {
@@ -100,18 +82,18 @@
                 });
             });
             $('#createCustomerBtn').click(function() {
-                var formData = $('#createTKAForm').serialize();
-
+                var formData = $('#createUserForm').serialize();
                 $.ajax({
                     type: 'POST',
-                    url: '/tka/store',
+                    url: '/lowongan-kerja/store',
                     data: formData,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
                         alert(response.message);
-                        $('#datatable-tka').DataTable().ajax.reload();
+                        $('#formCustomerName').val('');
+                        $('#datatable-loker').DataTable().ajax.reload();
                         $('#create').modal('hide');
                     },
                     error: function(xhr) {
@@ -123,13 +105,13 @@
                 if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
                     $.ajax({
                         type: 'DELETE',
-                        url: '/tka/delete/' + id,
+                        url: '/lowongan-kerja/delete/' + id,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
                             // alert(response.message);
-                            $('#datatable-tka').DataTable().ajax.reload();
+                            $('#datatable-loker').DataTable().ajax.reload();
                         },
                         error: function(xhr) {
                             alert('Terjadi kesalahan: ' + xhr.responseText);
@@ -137,29 +119,6 @@
                     });
                 }
             };
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            // Tombol Tambah
-            $('.btn-tambah').click(function() {
-                var divParent = $(this).closest('#createImta');
-                var newInput = divParent.find('.input-group:first').clone();
-                newInput.find('input').val('');
-                divParent.append(newInput);
-                newInput.find('.btn-tambah').remove();
-                divParent.find('.input-group').last().append(
-                    '<button type="button" class="btn btn-sm btn-danger btn-hapus"><i class="bx bx-minus"></i></button>'
-                );
-            });
-
-            // Tombol Hapus
-            $(document).on('click', '.btn-hapus', function() {
-                var divParent = $(this).closest('#createImta');
-                if (divParent.find('.input-group').length > 1) {
-                    $(this).closest('.input-group').remove();
-                }
-            });
         });
     </script>
 @endpush

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Imta;
 use App\Models\Perusahaan;
 use App\Models\TenagaAsing;
 use Illuminate\Http\Request;
@@ -26,7 +27,16 @@ class TenagaAsingController extends Controller
             ->addColumn('action', function ($TenagaAsing) {
                 return view('admin.tka.components.actions', compact('TenagaAsing'));
             })
-            ->rawColumns(['action'])
+            ->addColumn('no_imta', function ($tenagaAsing) {
+                $imtaList = Imta::where('id_tenaga_asing', $tenagaAsing->id)->pluck('no_imta')->toArray();
+                $olList = '<ol>';
+                foreach ($imtaList as $imta) {
+                    $olList .= '<li>' . $imta . '</li>';
+                }
+                $olList .= '</ol>';
+                return $olList;
+            })
+            ->rawColumns(['action', 'no_imta'])
             ->make(true);
     }
     public function getalltkaDataTable(Request $request)
@@ -40,7 +50,16 @@ class TenagaAsingController extends Controller
             ->addColumn('action', function ($TenagaAsing) {
                 return view('admin.tka.components.actions', compact('TenagaAsing'));
             })
-            ->rawColumns(['action'])
+            ->addColumn('no_imta', function ($tenagaAsing) {
+                $imtaList = Imta::where('id_tenaga_asing', $tenagaAsing->id)->pluck('no_imta')->toArray();
+                $olList = '<ol>';
+                foreach ($imtaList as $imta) {
+                    $olList .= '<li>' . $imta . '</li>';
+                }
+                $olList .= '</ol>';
+                return $olList;
+            })
+            ->rawColumns(['action', 'no_imta'])
             ->make(true);
     }
     public function store(Request $request)
@@ -53,7 +72,7 @@ class TenagaAsingController extends Controller
             'jabatan' => 'required|string|max:255',
             'no_passport' => 'required|string|max:255',
             'no_kitas' => 'required|string|max:255',
-            'no_imta' => 'required|string|max:255',
+            'no_imta.*' => 'required|string|max:255',
             'sponsor' => 'nullable|string|max:255',
         ]);
 
@@ -65,7 +84,6 @@ class TenagaAsingController extends Controller
             'jabatan' => $request->input('jabatan'),
             'no_passport' => $request->input('no_passport'),
             'no_kitas' => $request->input('no_kitas'),
-            'no_imta' => $request->input('no_imta'),
             'sponsor' => $request->input('sponsor'),
         ];
 
@@ -78,7 +96,18 @@ class TenagaAsingController extends Controller
             $TenagaAsing->update($TenagaAsingData);
             $message = 'Tenaga Asing updated successfully';
         } else {
-            TenagaAsing::create($TenagaAsingData);
+            $TenagaAsing = TenagaAsing::create($TenagaAsingData);
+
+            $noImtas = $request->input('no_imta');
+
+            // Simpan data ke database
+            foreach ($noImtas as $noImta) {
+                $imta = new Imta();
+                $imta->id_tenaga_asing = $TenagaAsing->id;
+                $imta->no_imta = $noImta;
+                $imta->save();
+            }
+
             $message = 'Tanaga Asing created successfully';
         }
 

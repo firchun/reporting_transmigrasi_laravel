@@ -3,6 +3,7 @@
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\LowonganKerjaController;
 use App\Http\Controllers\PendidikanController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ProfileController;
@@ -46,6 +47,12 @@ Route::middleware(['auth:web', 'role:Perusahaan'])->group(function () {
     Route::post('/perusahaan/store',  [PerusahaanController::class, 'store'])->name('perusahaan.store');
     Route::get('/perusahaan/perusahaan',  [PerusahaanController::class, 'perusahaan'])->name('perusahaan.perusahaan');
     //tka management
+    Route::get('/lowongan-kerja', [LowonganKerjaController::class, 'index'])->name('lowongan-kerja');
+    Route::post('/lowongan-kerja/store',  [LowonganKerjaController::class, 'store'])->name('lowongan-kerja.store');
+    Route::get('/lowongan-kerja/edit/{id}',  [LowonganKerjaController::class, 'edit'])->name('lowongan-kerja.edit');
+    Route::delete('/lowongan-kerja/delete/{id}',  [LowonganKerjaController::class, 'destroy'])->name('lowongan-kerja.delete');
+    Route::get('/lowongan-kerja-datatable/{id_perusahaan}', [LowonganKerjaController::class, 'getLowonganKerjaDataTable']);
+    //tka management
     Route::get('/tka', [TenagaAsingController::class, 'index'])->name('tka');
     Route::post('/tka/store',  [TenagaAsingController::class, 'store'])->name('tka.store');
     Route::get('/tka/edit/{id}',  [TenagaAsingController::class, 'edit'])->name('tka.edit');
@@ -84,17 +91,20 @@ Route::middleware(['auth:web', 'role:Admin'])->group(function () {
     Route::delete('/users/delete/{id}',  [UserController::class, 'destroy'])->name('users.delete');
     Route::get('/users-datatable/{role}', [UserController::class, 'getUsersDataTable']);
     //perusahaan
-    Route::get('/perusahaan-datatable', [PerusahaanController::class, 'getPerusahaanDataTable']);
+    // Route::get('/perusahaan-datatable', [PerusahaanController::class, 'getPerusahaanDataTable']);
     //tka
-    Route::get('/all-tka-datatable', [TenagaAsingController::class, 'getalltkaDataTable']);
-    //tkl
-    Route::get('/all-tkl-datatable', [TenagaLokalController::class, 'getalltklDataTable']);
+    // Route::get('/all-tka-datatable', [TenagaAsingController::class, 'getalltkaDataTable']);
+    // //tkl
+    // Route::get('/all-tkl-datatable', [TenagaLokalController::class, 'getalltklDataTable']);
     //laporan
-    Route::get('/laporan/admin/perusahaan', [LaporanController::class, 'all_perusahaan'])->name('laporan.admin.perusahaan');
-    Route::get('/laporan/admin/tkl', [LaporanController::class, 'all_tkl'])->name('laporan.admin.tkl');
-    Route::get('/laporan/admin/tka', [LaporanController::class, 'all_tka'])->name('laporan.admin.tka');
+    // Route::get('/laporan/admin/perusahaan', [LaporanController::class, 'all_perusahaan'])->name('laporan.admin.perusahaan');
+    // Route::get('/laporan/admin/tkl', [LaporanController::class, 'all_tkl'])->name('laporan.admin.tkl');
+    // Route::get('/laporan/admin/tka', [LaporanController::class, 'all_tka'])->name('laporan.admin.tka');
+    // Route::get('/laporan/admin/lowongan-kerja', [LaporanController::class, 'all_lowongan_kerja'])->name('laporan.admin.lowongan-kerja');
 });
 Route::middleware(['auth:web', 'role:Admin,Bidang'])->group(function () {
+    //perusahaan
+    Route::get('/all-lowongan-kerja-datatable', [LowonganKerjaController::class, 'getAllLowonganKerjaDataTable']);
     //perusahaan
     Route::get('/perusahaan-datatable', [PerusahaanController::class, 'getPerusahaanDataTable']);
     //tka
@@ -105,4 +115,5 @@ Route::middleware(['auth:web', 'role:Admin,Bidang'])->group(function () {
     Route::get('/laporan/admin/perusahaan', [LaporanController::class, 'all_perusahaan'])->name('laporan.admin.perusahaan');
     Route::get('/laporan/admin/tkl', [LaporanController::class, 'all_tkl'])->name('laporan.admin.tkl');
     Route::get('/laporan/admin/tka', [LaporanController::class, 'all_tka'])->name('laporan.admin.tka');
+    Route::get('/laporan/admin/lowongan-kerja', [LaporanController::class, 'all_lowongan_kerja'])->name('laporan.admin.lowongan-kerja');
 });

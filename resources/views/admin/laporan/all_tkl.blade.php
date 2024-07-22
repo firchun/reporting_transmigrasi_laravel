@@ -48,6 +48,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Tanggal</th>
                                 <th>Perusahaan</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
@@ -67,6 +68,7 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
+                                <th>Tanggal</th>
                                 <th>Perusahaan</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
@@ -100,7 +102,13 @@
                             data: 'id',
                             name: 'id'
                         },
-
+                        {
+                            data: 'created_at',
+                            name: 'created_at',
+                            render: function(data, type, full, meta) {
+                                return moment(data).format('DD MMMM YYYY');
+                            }
+                        },
                         {
                             data: 'perusahaan.nama_perusahaan',
                             name: 'perusahaan.nama_perusahaan'
@@ -194,6 +202,13 @@
                         },
 
                         {
+                            data: 'created_at',
+                            name: 'created_at',
+                            render: function(data, type, full, meta) {
+                                return moment(data).format('DD MMMM YYYY');
+                            }
+                        },
+                        {
                             data: 'perusahaan.nama_perusahaan',
                             name: 'perusahaan.nama_perusahaan'
                         },
@@ -257,6 +272,7 @@
         })
     </script>
     <!-- JS DataTables Buttons -->
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
