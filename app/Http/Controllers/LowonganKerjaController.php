@@ -20,10 +20,25 @@ class LowonganKerjaController extends Controller
         ];
         return view('admin.lowongan_kerja.index', $data);
     }
-    public function getAllLowonganKerjaDataTable()
+    public function getAllLowonganKerjaDataTable(Request $request)
     {
+        $id_perusahaan = $request->input('id_perusahaan');
         $loker = LowonganKerja::with(['perusahaan'])->orderByDesc('id');
+        if (Auth::user()->role == 'Perusahaan') {
+            $perusahaan = Perusahaan::where('id_user', Auth::id())->first();
+            $loker = $loker->where('id_perusahaan', $perusahaan->id);
+        } else {
+            if ($id_perusahaan) {
+                $loker = $loker->where('id_perusahaan', $id_perusahaan);
+            }
+            if ($request->has('start_date') && $request->start_date) {
+                $loker->whereDate('created_at', '>=', $request->start_date);
+            }
 
+            if ($request->has('end_date') && $request->end_date) {
+                $loker->whereDate('created_at', '<=', $request->end_date);
+            }
+        }
         return DataTables::of($loker)
             ->addColumn('brosur', function ($loker) {
                 return '<a  href="' . Storage::url($loker->brosur) . '" target="__blank"><img src="' . Storage::url($loker->brosur) . '" style="width: 100px;height: 100px;object-fit:cover;"></a>';

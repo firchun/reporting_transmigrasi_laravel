@@ -161,8 +161,22 @@
 
                         text: '<i class="bx bxs-file-pdf"></i> Download PDF',
                         className: 'btn-danger mx-3',
+
                         action: function(e, dt, button, config) {
-                            window.location.href = '/laporan/admin/print-tenaga-asing';
+
+                            var idPerusahaan = $('#selectPerusahaan').val();
+                            var startDate = $('#start_date').val();
+                            var endDate = $('#end_date').val();
+                            var url = '/laporan/admin/print-tenaga-asing?' +
+                                'id_perusahaan=' + encodeURIComponent(idPerusahaan) +
+                                '&start_date=' + encodeURIComponent(startDate) +
+                                '&end_date=' + encodeURIComponent(endDate);
+
+                            var link = document.createElement('a');
+                            link.href = url;
+                            link.target = '_blank';
+                            link.click();
+
                         }
                     },
                     {

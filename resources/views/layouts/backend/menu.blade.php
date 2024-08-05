@@ -146,6 +146,12 @@
                         <div data-i18n="Analytics">Tenaga Kerja Asing</div>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->is('laporan/admin/lowongan-kerja') ? 'active' : '' }}">
+                    <a href="{{ url('/laporan/admin/lowongan-kerja') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-folder"></i>
+                        <div data-i18n="Analytics">Laporan Loker</div>
+                    </a>
+                </li>
             @endif
         @elseif(Auth::user()->role == 'Bidang')
             <li class="menu-header small text-uppercase">

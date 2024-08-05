@@ -120,8 +120,13 @@
 
                         text: '<i class="bx bxs-file-pdf"></i> Download PDF',
                         className: 'btn-danger mx-3',
+
                         action: function(e, dt, button, config) {
-                            window.location.href = '/laporan/admin/print-tenaga-asing';
+                            var link = document.createElement('a');
+                            link.href = '/laporan/admin/print-tenaga-asing';
+                            link.target = '_blank';
+                            link.click();
+
                         }
                     },
                     {

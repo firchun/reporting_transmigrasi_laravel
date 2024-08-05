@@ -14,9 +14,9 @@
 
         hr {
             margin: 1px;
-            ;
+
             border: none;
-            border-top: 2px dashed #000;
+            border-top: 2px solid #000;
         }
 
         tr {
@@ -49,12 +49,12 @@
                 </td>
                 <td class="text-center" style="width: 80%">
                     <b>
-                        PEMERINTAH KABUPATEN MERAUKE<br>
-                        <h4>DINAS TRANSMIGRASI DAN PEKERJAAN UMUM</h4>
+                        <h6 class="m-0">PEMERINTAH KABUPATEN MERAUKE</h6>
+                        <h4 class="m-0">DINAS TENAGA KERJA DAN TRANSMIGRASI</h4>
+                        <i>Jalan Mayor Wiranto Merauke - Papua Selatan, Telpon (0971)321485, 321897</i><br>
+                        <i>pos-el <a href="">disnakertrans.kabmerauke@gmail.com</a></i> Kode Pos 99613
 
                     </b>
-                    Jl. Ermasu no. 1, Merauke, 99613
-
                 </td>
                 <td style="width: 20%"></td>
             </tr>
@@ -65,7 +65,6 @@
                 Laporan Data Perusahaan
             </h4>
         </center>
-        <hr>
         <br>
         <table class="table-custom">
             <thead>

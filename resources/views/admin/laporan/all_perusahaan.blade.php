@@ -147,8 +147,16 @@
 
                         text: '<i class="bx bxs-file-pdf"></i> Download PDF',
                         className: 'btn-danger mx-3',
+
                         action: function(e, dt, button, config) {
-                            window.location.href = '/laporan/admin/print-perusahaan';
+                            var aktifFilter = $('#selectAktif').val();
+                            var url = '/laporan/admin/print-perusahaan?aktif=' + encodeURIComponent(
+                                aktifFilter);
+                            var link = document.createElement('a');
+                            link.href = url;
+                            link.target = '_blank';
+                            link.click();
+
                         }
                     },
                     {
