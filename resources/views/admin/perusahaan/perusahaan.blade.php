@@ -18,6 +18,11 @@
                                 value="{{ $perusahaan->nama_perusahaan }}" required>
                         </div>
                         <div class="mb-3">
+                            <label for="">Nomor HP/WA Perusahaan</label>
+                            <input type="text" name="no_hp" class="form-control" value="{{ $perusahaan->no_hp }}"
+                                required>
+                        </div>
+                        <div class="mb-3">
                             <label for="">Jenis Usaha / Sektor Perusahaan</label>
                             <input type="text" name="jenis_usaha" class="form-control"
                                 placeholder="Jenis Usaha Perusahaan" value="{{ $perusahaan->jenis_usaha }}" required>

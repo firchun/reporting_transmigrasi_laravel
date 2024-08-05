@@ -34,9 +34,20 @@
                         <label for="formTKANama" class="form-label">No. Passport</label>
                         <input type="text" class="form-control" name="no_passport" id="updateNoPassport" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="formTKANama" class="form-label">No. KITAS</label>
-                        <input type="text" class="form-control" name="no_kitas" id="updateNoKitas" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">No. KITAS</label>
+                                <input type="text" class="form-control" name="no_kitas" id="updateNoKitas" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Tanggal berlaku KITAS</label>
+                                <input type="date" class="form-control" name="tanggal_berlaku_kitas"
+                                    id="updateTanggalBerlakuKitas" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3" id="updateImta">
                         <label for="formTKANama" class="form-label">No. IMTA</label>
@@ -99,9 +110,20 @@
                         <label for="formTKANama" class="form-label">No. Passport</label>
                         <input type="text" class="form-control" name="no_passport" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="formTKANama" class="form-label">No. KITAS</label>
-                        <input type="text" class="form-control" name="no_kitas" required>
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">No. KITAS</label>
+                                <input type="text" class="form-control" name="no_kitas" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="formTKANama" class="form-label">Tanggal berlaku KITAS</label>
+                                <input type="date" class="form-control" name="tanggal_berlaku_kitas" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3" id="createImta">
                         <label for="updateNoImta" class="form-label">No. IMTA</label>

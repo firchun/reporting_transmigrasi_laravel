@@ -6,6 +6,7 @@ use App\Models\LowonganKerja;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class LowonganKerjaController extends Controller
@@ -21,12 +22,16 @@ class LowonganKerjaController extends Controller
     }
     public function getAllLowonganKerjaDataTable()
     {
-        $loker = LowonganKerja::orderByDesc('id');
+        $loker = LowonganKerja::with(['perusahaan'])->orderByDesc('id');
 
         return DataTables::of($loker)
-
-
-            // ->rawColumns(['action'])
+            ->addColumn('brosur', function ($loker) {
+                return '<a  href="' . Storage::url($loker->brosur) . '" target="__blank"><img src="' . Storage::url($loker->brosur) . '" style="width: 100px;height: 100px;object-fit:cover;"></a>';
+            })
+            ->addColumn('action', function ($loker) {
+                return view('admin.lowongan_kerja.components.actions', compact('loker'));
+            })
+            ->rawColumns(['brosur', 'action'])
             ->make(true);
     }
     public function getLowonganKerjaDataTable($id_perusahaan)
@@ -37,7 +42,10 @@ class LowonganKerjaController extends Controller
             ->addColumn('action', function ($loker) {
                 return view('admin.lowongan_kerja.components.actions', compact('loker'));
             })
-            ->rawColumns(['action'])
+            ->addColumn('brosur', function ($loker) {
+                return '<a href="' . Storage::url($loker->brosur) . '" target="__blank"><img src="' . Storage::url($loker->brosur) . '" style="width: 100px;height: 100px;object-fit:cover;"></a>';
+            })
+            ->rawColumns(['action', 'brosur'])
             ->make(true);
     }
     public function store(Request $request)
@@ -50,6 +58,7 @@ class LowonganKerjaController extends Controller
             'pengiriman_berkas' => 'required|string',
             'tanggal_buka' => 'required|string',
             'tanggal_tutup' => 'required|string',
+            'brosur' => 'nullable|file',
         ]);
 
         $lokerData = [
@@ -62,6 +71,12 @@ class LowonganKerjaController extends Controller
             'tanggal_buka' => $request->input('tanggal_buka'),
             'tanggal_tutup' => $request->input('tanggal_tutup'),
         ];
+        if ($request->hasFile('brosur')) {
+            // Simpan file brosur
+            $file = $request->file('brosur');
+            $filePath = $file->store('brosur', 'public'); // Simpan ke storage/app/public/brosur
+            $lokerData['brosur'] = $filePath; // Simpan path file di data yang akan diinsert/update
+        }
 
         if ($request->filled('id')) {
             $LowonganKerja = LowonganKerja::find($request->input('id'));
@@ -99,5 +114,15 @@ class LowonganKerjaController extends Controller
         }
 
         return response()->json($LowonganKerja);
+    }
+    public function detail($id)
+    {
+        $LowonganKerja = LowonganKerja::with(['perusahaan'])->find($id);
+        $data = [
+            'title' => 'Detail Formulir Lowongan Kerja ',
+            'loker' => $LowonganKerja,
+        ];
+
+        return view('admin.lowongan_kerja.detail', $data);
     }
 }

@@ -1,4 +1,5 @@
 @push('js')
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script>
         $(function() {
             $('#datatable-tkl').DataTable({
@@ -7,8 +8,19 @@
                 responsive: true,
                 ajax: '{{ url('tkl-datatable', $perusahaan->id) }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        // Menampilkan nomor urut
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // +1 karena meta.row mulai dari 0
+                        }
+                    },
+                    {
+                        data: 'created_at',
+                        render: function(data) {
+                            return moment(data).format('DD MMMM YYYY');
+                        }
                     },
 
                     {

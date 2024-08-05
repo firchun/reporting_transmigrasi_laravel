@@ -21,6 +21,30 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <div class="px-3">
+                    <strong>Filter Data</strong>
+                    <div class="d-flex justify-content-center align-items-center row gap-md-0">
+
+                        <div class="col-md-4 col-12">
+                            <label>Pilih Status</label>
+                            <div class="input-group">
+                                <select id="selectAktif" name="aktif" class="form-select">
+                                    <option value="">Semua</option>
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Non-aktif</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <button type="button" id="filter" class="btn btn-primary">
+                                <i class="bx bx-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class="card-datatable table-responsive">
                     <table id="datatable-perusahaan" class="table table-hover table-bordered display table-sm">
                         <thead>
@@ -33,6 +57,7 @@
                                 <th>Jenis Usaha</th>
                                 <th>Tenaga Kerja Asing</th>
                                 <th>Tenaga Kerja Lokal</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
 
@@ -46,6 +71,7 @@
                                 <th>Jenis Usaha</th>
                                 <th>Tenaga Kerja Asing</th>
                                 <th>Tenaga Kerja Lokal</th>
+                                <th>Status</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -57,14 +83,24 @@
 @push('js')
     <script>
         $(function() {
-            $('#datatable-perusahaan').DataTable({
+            var table = $('#datatable-perusahaan').DataTable({
                 processing: true,
                 serverSide: false,
                 responsive: false,
-                ajax: '{{ url('perusahaan-datatable') }}',
+                ajax: {
+                    url: '{{ url('perusahaan-datatable') }}',
+                    data: function(d) {
+                        d.aktif = $('#selectAktif').val();
+                    }
+                },
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        // Menampilkan nomor urut
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // +1 karena meta.row mulai dari 0
+                        }
                     },
                     {
                         data: 'created_at',
@@ -96,6 +132,13 @@
                     {
                         data: 'jumlah_tkl',
                         name: 'jumlah_tkl'
+                    },
+                    {
+                        data: 'aktif',
+                        name: 'aktif',
+                        render: function(data, type, full, meta) {
+                            return data == 1 ? 'Aktif' : 'Non AKtif';
+                        }
                     },
 
                 ],
@@ -132,6 +175,11 @@
 
             $('.refresh').click(function() {
                 $('#datatable-perusahaan').DataTable().ajax.reload();
+            });
+            $('#filter').click(function() {
+                table.ajax.url('{{ url('perusahaan-datatable') }}?' + $.param({
+                    aktif: $('#selectAktif').val(),
+                })).load();
             });
         })
     </script>

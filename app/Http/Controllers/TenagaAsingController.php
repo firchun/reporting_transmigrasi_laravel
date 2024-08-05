@@ -27,6 +27,9 @@ class TenagaAsingController extends Controller
             ->addColumn('action', function ($TenagaAsing) {
                 return view('admin.tka.components.actions', compact('TenagaAsing'));
             })
+            ->addColumn('kitas', function ($TenagaAsing) {
+                return $TenagaAsing->no_kitas . '/' . $TenagaAsing->tanggal_berlaku_kitas ?? '-';
+            })
             ->addColumn('no_imta', function ($tenagaAsing) {
                 $imtaList = Imta::where('id_tenaga_asing', $tenagaAsing->id)->pluck('no_imta')->toArray();
                 $olList = '<ol>';
@@ -36,7 +39,7 @@ class TenagaAsingController extends Controller
                 $olList .= '</ol>';
                 return $olList;
             })
-            ->rawColumns(['action', 'no_imta'])
+            ->rawColumns(['action', 'no_imta', 'kitas'])
             ->make(true);
     }
     public function getalltkaDataTable(Request $request)
@@ -44,11 +47,21 @@ class TenagaAsingController extends Controller
         $id_perusahaan = $request->input('id_perusahaan');
         $TenagaAsing = TenagaAsing::with(['perusahaan'])->orderByDesc('id');
         if ($id_perusahaan) {
-            $TenagaAsing->where('id_perusahaan', $id_perusahaan);
+            $TenagaAsing = $TenagaAsing->where('id_perusahaan', $id_perusahaan);
+        }
+        if ($request->has('start_date') && $request->start_date) {
+            $TenagaAsing->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $TenagaAsing->whereDate('created_at', '<=', $request->end_date);
         }
         return DataTables::of($TenagaAsing)
             ->addColumn('action', function ($TenagaAsing) {
                 return view('admin.tka.components.actions', compact('TenagaAsing'));
+            })
+            ->addColumn('kitas', function ($TenagaAsing) {
+                return $TenagaAsing->no_kitas . '/' . $TenagaAsing->tanggal_berlaku_kitas ?? '-';
             })
             ->addColumn('no_imta', function ($tenagaAsing) {
                 $imtaList = Imta::where('id_tenaga_asing', $tenagaAsing->id)->pluck('no_imta')->toArray();
@@ -59,7 +72,7 @@ class TenagaAsingController extends Controller
                 $olList .= '</ol>';
                 return $olList;
             })
-            ->rawColumns(['action', 'no_imta'])
+            ->rawColumns(['action', 'no_imta', 'kitas'])
             ->make(true);
     }
     public function store(Request $request)
@@ -74,6 +87,7 @@ class TenagaAsingController extends Controller
             'no_kitas' => 'required|string|max:255',
             'no_imta.*' => 'required|string|max:255',
             'sponsor' => 'nullable|string|max:255',
+            'tanggal_berlaku_kitas' => 'nullable|string|max:255',
         ]);
 
         $TenagaAsingData = [
@@ -85,6 +99,7 @@ class TenagaAsingController extends Controller
             'no_passport' => $request->input('no_passport'),
             'no_kitas' => $request->input('no_kitas'),
             'sponsor' => $request->input('sponsor'),
+            'tanggal_berlaku_kitas' => $request->input('tanggal_berlaku_kitas'),
         ];
 
         if ($request->filled('id')) {

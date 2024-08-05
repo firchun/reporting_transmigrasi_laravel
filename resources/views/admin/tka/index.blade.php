@@ -32,6 +32,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
                                 <th>Kebangsaan</th>
@@ -47,6 +48,7 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
+                                <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
                                 <th>Kebangsaan</th>

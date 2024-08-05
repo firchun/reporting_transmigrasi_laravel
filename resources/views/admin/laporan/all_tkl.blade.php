@@ -25,9 +25,18 @@
                 <div style="margin-left:24px; margin-right: 24px;">
                     <strong>Filter Data</strong>
                     <div class="d-flex justify-content-center align-items-center row gap-3 gap-md-0">
-                        <div class="col-md-8 col-12">
+                        <div class="col-md-6 col-12">
+                            <label>Range Tanggal Input</label>
                             <div class="input-group">
-                                <span class="input-group-text">Perusahaan</span>
+                                <input type="date" id="start_date" name="start_date" class="form-control">
+                                <span class="input-group-text"> Sampai</span>
+                                <input type="date" id="end_date" name="end_date" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-12">
+                            <label>Pilih Perusahaan</label>
+                            <div class="input-group">
                                 <select id="selectPerusahaan" name="id_perusahaan" class="form-select">
                                     <option value="">Semua</option>
                                     @foreach (App\Models\Perusahaan::all() as $item)
@@ -92,183 +101,120 @@
 @push('js')
     <script>
         $(function() {
-            @if (Auth::user()->role = 'Admin')
-                var table = $('#datatable-tkl').DataTable({
-                    processing: true,
-                    serverSide: false,
-                    responsive: true,
-                    ajax: '{{ url('all-tkl-datatable') }}',
-                    columns: [{
-                            data: 'id',
-                            name: 'id'
-                        },
-                        {
-                            data: 'created_at',
-                            name: 'created_at',
-                            render: function(data, type, full, meta) {
-                                return moment(data).format('DD MMMM YYYY');
-                            }
-                        },
-                        {
-                            data: 'perusahaan.nama_perusahaan',
-                            name: 'perusahaan.nama_perusahaan'
-                        },
-                        {
-                            data: 'nama',
-                            name: 'nama'
-                        },
-
-                        {
-                            data: 'jenis_kelamin',
-                            name: 'jenis_kelamin'
-                        },
-                        {
-                            data: 'mulai_kerja',
-                            name: 'mulai_kerja'
-                        },
-                        {
-                            data: 'status_karyawan',
-                            name: 'status_karyawan'
-                        },
-                        {
-                            data: 'jabatan',
-                            name: 'jabatan'
-                        },
-                        {
-                            data: 'no_kartu_kuning',
-                            name: 'no_kartu_kuning'
-                        },
-                        {
-                            data: 'tenaga_kerja',
-                            name: 'tenaga_kerja'
-                        },
-                        {
-                            data: 'tempat_lahir',
-                            name: 'tempat_lahir'
-                        },
-                        {
-                            data: 'tanggal_lahir',
-                            name: 'tanggal_lahir'
-                        },
-                        {
-                            data: 'pendidikan.nama_pendidikan',
-                            name: 'pendidikan.nama_pendidikan'
-                        },
-                        {
-                            data: 'LPTKS',
-                            name: 'LPTKS'
-                        },
-
-                    ],
-                    dom: 'lBfrtip',
-                    buttons: [{
-                            extend: 'pdf',
-                            text: '<i class="bx bxs-file-pdf"></i> PDF',
-                            className: 'btn-danger mx-3',
-                            orientation: 'potrait',
-                            title: '{{ $title }}',
-                            pageSize: 'A4',
-                            exportOptions: {
-                                columns: ':visible'
-                            },
-                            customize: function(doc) {
-                                doc.defaultStyle.fontSize = 8;
-                                doc.styles.tableHeader.fontSize = 8;
-                                doc.styles.tableHeader.fillColor = '#2a6908';
-
-
-                            },
-                            header: true
-                        },
-                        {
-                            extend: 'excelHtml5',
-                            text: '<i class="bx bxs-file-export"></i> Excel',
-                            className: 'btn-success',
-                            exportOptions: {
-                                columns: ':visible'
-                            }
+            var table = $('#datatable-tkl').DataTable({
+                processing: true,
+                serverSide: false,
+                responsive: true,
+                ajax: '{{ url('all-tkl-datatable') }}',
+                columns: [{
+                        // Menampilkan nomor urut
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // +1 karena meta.row mulai dari 0
                         }
-                    ]
-                });
-            @else
-                var table = $('#datatable-tkl').DataTable({
-                    processing: true,
-                    serverSide: false,
-                    responsive: true,
-                    ajax: '{{ url('all-tkl-datatable') }}',
-                    columns: [{
-                            data: 'id',
-                            name: 'id'
-                        },
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        render: function(data, type, full, meta) {
+                            return moment(data).format('DD MMMM YYYY');
+                        }
+                    },
+                    {
+                        data: 'perusahaan.nama_perusahaan',
+                        name: 'perusahaan.nama_perusahaan'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
 
-                        {
-                            data: 'created_at',
-                            name: 'created_at',
-                            render: function(data, type, full, meta) {
-                                return moment(data).format('DD MMMM YYYY');
-                            }
-                        },
-                        {
-                            data: 'perusahaan.nama_perusahaan',
-                            name: 'perusahaan.nama_perusahaan'
-                        },
-                        {
-                            data: 'nama',
-                            name: 'nama'
-                        },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
+                    },
+                    {
+                        data: 'mulai_kerja',
+                        name: 'mulai_kerja'
+                    },
+                    {
+                        data: 'status_karyawan',
+                        name: 'status_karyawan'
+                    },
+                    {
+                        data: 'jabatan',
+                        name: 'jabatan'
+                    },
+                    {
+                        data: 'no_kartu_kuning',
+                        name: 'no_kartu_kuning'
+                    },
+                    {
+                        data: 'tenaga_kerja',
+                        name: 'tenaga_kerja'
+                    },
+                    {
+                        data: 'tempat_lahir',
+                        name: 'tempat_lahir'
+                    },
+                    {
+                        data: 'tanggal_lahir',
+                        name: 'tanggal_lahir'
+                    },
+                    {
+                        data: 'pendidikan.nama_pendidikan',
+                        name: 'pendidikan.nama_pendidikan'
+                    },
+                    {
+                        data: 'LPTKS',
+                        name: 'LPTKS'
+                    },
 
-                        {
-                            data: 'jenis_kelamin',
-                            name: 'jenis_kelamin'
+                ],
+                dom: 'lBfrtip',
+                buttons: [{
+                        extend: 'pdf',
+                        text: '<i class="bx bxs-file-pdf"></i> PDF',
+                        className: 'btn-danger mx-3',
+                        orientation: 'potrait',
+                        title: '{{ $title }}',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            columns: ':visible'
                         },
-                        {
-                            data: 'mulai_kerja',
-                            name: 'mulai_kerja'
-                        },
-                        {
-                            data: 'status_karyawan',
-                            name: 'status_karyawan'
-                        },
-                        {
-                            data: 'jabatan',
-                            name: 'jabatan'
-                        },
-                        {
-                            data: 'no_kartu_kuning',
-                            name: 'no_kartu_kuning'
-                        },
-                        {
-                            data: 'tenaga_kerja',
-                            name: 'tenaga_kerja'
-                        },
-                        {
-                            data: 'tempat_lahir',
-                            name: 'tempat_lahir'
-                        },
-                        {
-                            data: 'tanggal_lahir',
-                            name: 'tanggal_lahir'
-                        },
-                        {
-                            data: 'pendidikan.nama_pendidikan',
-                            name: 'pendidikan.nama_pendidikan'
-                        },
-                        {
-                            data: 'LPTKS',
-                            name: 'LPTKS'
-                        },
+                        customize: function(doc) {
+                            doc.defaultStyle.fontSize = 8;
+                            doc.styles.tableHeader.fontSize = 8;
+                            doc.styles.tableHeader.fillColor = '#2a6908';
 
-                    ]
-                });
-            @endif
+
+                        },
+                        header: true
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="bx bxs-file-export"></i> Excel',
+                        className: 'btn-success',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+                ]
+            });
+
             $('.refresh').click(function() {
                 $('#datatable-tkl').DataTable().ajax.reload();
             });
             $('#filter').click(function() {
-                table.ajax.url('{{ url('all-tkl-datatable') }}?perusahaan=' + $(
-                        '#selectPerusahaan')
-                    .val()).load();
+                table.ajax.url('{{ url('all-tkl-datatable') }}?' + $.param({
+                    id_perusahaan: $('#selectPerusahaan').val(),
+                    start_date: $('#start_date').val(),
+                    end_date: $('#end_date').val()
+                })).load();
             });
+
         })
     </script>
     <!-- JS DataTables Buttons -->

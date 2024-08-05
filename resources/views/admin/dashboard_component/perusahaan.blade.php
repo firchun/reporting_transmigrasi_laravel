@@ -18,6 +18,13 @@
             'color' => 'success',
             'icon' => 'user',
         ])
+        @include('admin.dashboard_component.card1', [
+            'count' => $loker,
+            'title' => 'Lowongan Kerja',
+            'subtitle' => 'Total data Lowongan Kerja',
+            'color' => 'primary',
+            'icon' => 'folder',
+        ])
     </div>
 @else
     <div class="row justify-content-center">
@@ -38,6 +45,10 @@
                             <label for="">Jenis Usaha / Sektor Perusahaan</label>
                             <input type="text" name="jenis_usaha" class="form-control"
                                 placeholder="Jenis Usaha Perusahaan" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Nomor HP/WA Perusahaan</label>
+                            <input type="text" name="no_hp" class="form-control" value="+62" required>
                         </div>
                         <div class="mb-3">
                             <label for="">Tahun Berdiri</label>

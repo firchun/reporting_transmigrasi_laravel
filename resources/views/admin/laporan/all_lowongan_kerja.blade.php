@@ -32,6 +32,7 @@
                                 <th>Tanggal Buka</th>
                                 <th>Tanggal Tutup</th>
                                 <th>Posisi/jabatan</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -44,6 +45,7 @@
                                 <th>Tanggal Buka</th>
                                 <th>Tanggal Tutup</th>
                                 <th>Posisi/jabatan</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -61,8 +63,13 @@
                 responsive: false,
                 ajax: '{{ url('all-lowongan-kerja-datatable') }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        // Menampilkan nomor urut
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // +1 karena meta.row mulai dari 0
+                        }
                     },
                     {
                         data: 'created_at',
@@ -90,6 +97,10 @@
                     {
                         data: 'posisi',
                         name: 'posisi'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
                     },
 
                 ],

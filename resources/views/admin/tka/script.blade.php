@@ -1,4 +1,5 @@
 @push('js')
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script>
         $(function() {
             $('#datatable-tka').DataTable({
@@ -7,10 +8,20 @@
                 responsive: true,
                 ajax: '{{ url('tka-datatable', $perusahaan->id) }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        // Menampilkan nomor urut
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // +1 karena meta.row mulai dari 0
+                        }
                     },
-
+                    {
+                        data: 'created_at',
+                        render: function(data) {
+                            return moment(data).format('DD MMMM YYYY');
+                        }
+                    },
                     {
                         data: 'nama',
                         name: 'nama'
@@ -32,8 +43,8 @@
                         name: 'no_passport'
                     },
                     {
-                        data: 'no_kitas',
-                        name: 'no_kitas'
+                        data: 'kitas',
+                        name: 'kitas'
                     },
                     {
                         data: 'no_imta',

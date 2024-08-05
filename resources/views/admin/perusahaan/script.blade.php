@@ -7,8 +7,13 @@
                 responsive: true,
                 ajax: '{{ url('pendidikan-datatable') }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        // Menampilkan nomor urut
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // +1 karena meta.row mulai dari 0
+                        }
                     },
 
                     {

@@ -11,6 +11,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PerusahaanController extends Controller
 {
+    public function index()
+    {
+        $data = [
+            'title' => 'Data Perusahaan',
+        ];
+        return view('admin.perusahaan.index', $data);
+    }
     public function perusahaan()
     {
         $data = [
@@ -19,10 +26,14 @@ class PerusahaanController extends Controller
         ];
         return view('admin.perusahaan.perusahaan', $data);
     }
-    public function getPerusahaanDataTable()
+    public function getPerusahaanDataTable(Request $request)
     {
         $Perusahaan = Perusahaan::orderByDesc('id');
-
+        $aktif = $request->input('aktif');
+        if (isset($aktif)) {
+            $aktif = (int) $aktif;
+            $Perusahaan->where('aktif', $aktif);
+        }
         return DataTables::of($Perusahaan)
 
             ->addColumn('jumlah_tka', function ($Perusahaan) {
@@ -33,8 +44,13 @@ class PerusahaanController extends Controller
                 $tkl = TenagaLokal::where('id_perusahaan', $Perusahaan->id)->count();
                 return $tkl . ' Karyawan';
             })
+            ->addColumn('action', function ($Perusahaan) {
+                $aktif = '<a href="' . route('perusahaan.non-aktifkan', $Perusahaan->id) . '" class="btn btn-danger">Non aktifkan</a>';
+                $non_aktif = '<a href="' . route('perusahaan.aktifkan', $Perusahaan->id) . '" class="btn btn-primary">Aktifkan</a>';
+                return $Perusahaan->aktif == 1 ? $aktif : $non_aktif;
+            })
 
-            ->rawColumns(['jumlah_tka', 'jumlah_tkl'])
+            ->rawColumns(['jumlah_tka', 'jumlah_tkl', 'action'])
             ->make(true);
     }
     public function store(Request $request)
@@ -44,10 +60,12 @@ class PerusahaanController extends Controller
             'alamat_perusahaan' => 'string|max:255',
             'tahun_berdiri' => 'string|max:255',
             'jenis_usaha' => 'string|max:255',
+            'no_hp' => 'string|max:255',
         ]);
 
         $perusahaanData = [
             'nama_perusahaan' => $request->input('nama_perusahaan'),
+            'no_hp' => $request->input('no_hp'),
             'alamat_perusahaan' => $request->input('alamat_perusahaan'),
             'tahun_berdiri' => $request->input('tahun_berdiri'),
             'jenis_usaha' => $request->input('jenis_usaha'),
@@ -68,5 +86,51 @@ class PerusahaanController extends Controller
             session()->flash('success', 'Berhasil mengajukan data perusahaan');
             return back();
         }
+    }
+    public function aktifkan($id)
+    {
+        // Temukan perusahaan berdasarkan ID
+        $perusahaan = Perusahaan::find($id);
+
+        // Periksa jika perusahaan ditemukan
+        if ($perusahaan) {
+            // Set kolom 'aktif' menjadi 1
+            $perusahaan->aktif = 1;
+
+            // Simpan perubahan ke database
+            $perusahaan->save();
+
+            // Pesan sukses
+            session()->flash('success', 'Perusahaan berhasil diaktifkan.');
+        } else {
+            // Pesan kesalahan jika perusahaan tidak ditemukan
+            session()->flash('error', 'Perusahaan tidak ditemukan.');
+        }
+
+        // Kembali ke halaman sebelumnya
+        return redirect()->back();
+    }
+    public function non_aktifkan($id)
+    {
+        // Temukan perusahaan berdasarkan ID
+        $perusahaan = Perusahaan::find($id);
+
+        // Periksa jika perusahaan ditemukan
+        if ($perusahaan) {
+            // Set kolom 'aktif' menjadi 0
+            $perusahaan->aktif = 0;
+
+            // Simpan perubahan ke database
+            $perusahaan->save();
+
+            // Pesan sukses
+            session()->flash('success', 'Perusahaan berhasil dinonaktifkan.');
+        } else {
+            // Pesan kesalahan jika perusahaan tidak ditemukan
+            session()->flash('error', 'Perusahaan tidak ditemukan.');
+        }
+
+        // Kembali ke halaman sebelumnya
+        return redirect()->back();
     }
 }

@@ -7,8 +7,12 @@
                 responsive: true,
                 ajax: '{{ url('lowongan-kerja-datatable', $perusahaan->id) }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1;
+                        }
                     },
                     {
                         data: 'brosur',
@@ -62,17 +66,19 @@
                 });
             };
             $('#saveCustomerBtn').click(function() {
-                var formData = $('#userForm').serialize();
+                var formData = new FormData($('#userForm')[0]); // Initialize FormData with the form
+
                 $.ajax({
                     type: 'POST',
                     url: '/lowongan-kerja/store',
                     data: formData,
+                    processData: false, // Prevent jQuery from automatically transforming the data into a query string
+                    contentType: false, // Set content type to false to allow the browser to set the appropriate content type
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
                         alert(response.message);
-                        // Refresh DataTable setelah menyimpan perubahan
                         $('#datatable-loker').DataTable().ajax.reload();
                         $('#customersModal').modal('hide');
                     },
@@ -81,12 +87,16 @@
                     }
                 });
             });
+
             $('#createCustomerBtn').click(function() {
-                var formData = $('#createUserForm').serialize();
+                var formData = new FormData($('#createUserForm')[0]); // Initialize FormData with the form
+
                 $.ajax({
                     type: 'POST',
                     url: '/lowongan-kerja/store',
                     data: formData,
+                    processData: false, // Prevent jQuery from automatically transforming the data into a query string
+                    contentType: false, // Set content type to false to allow the browser to set the appropriate content type
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -101,6 +111,7 @@
                     }
                 });
             });
+
             window.deleteCustomers = function(id) {
                 if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
                     $.ajax({

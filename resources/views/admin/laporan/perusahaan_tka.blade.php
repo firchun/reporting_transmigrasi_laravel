@@ -17,7 +17,6 @@
                                     <span class="d-none d-sm-inline-block">Refresh Data</span>
                                 </span>
                             </button>
-
                         </div>
                     </div>
                 </div>
@@ -26,6 +25,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
                                 <th>Kebangsaan</th>
@@ -40,6 +40,7 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
+                                <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
                                 <th>Kebangsaan</th>
@@ -65,8 +66,19 @@
                 responsive: true,
                 ajax: '{{ url('tka-datatable', $perusahaan->id) }}',
                 columns: [{
-                        data: 'id',
-                        name: 'id'
+                        // Menampilkan nomor urut
+                        data: null,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // +1 karena meta.row mulai dari 0
+                        }
+                    },
+                    {
+                        data: 'created_at',
+                        render: function(data) {
+                            return moment(data).format('DD MMMM YYYY');
+                        }
                     },
 
                     {
@@ -90,8 +102,8 @@
                         name: 'no_passport'
                     },
                     {
-                        data: 'no_kitas',
-                        name: 'no_kitas'
+                        data: 'kitas',
+                        name: 'kitas'
                     },
                     {
                         data: 'no_imta',
@@ -140,6 +152,8 @@
         });
     </script>
     <!-- JS DataTables Buttons -->
+
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>

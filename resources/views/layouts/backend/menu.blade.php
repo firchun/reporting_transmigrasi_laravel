@@ -37,6 +37,16 @@
                     <div data-i18n="Analytics">Jenjang Pendidikan</div>
                 </a>
             </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Perusahaan</span>
+            </li>
+
+            <li class="menu-item {{ request()->is('perusahaan') ? 'active' : '' }}">
+                <a href="{{ url('/perusahaan') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-folder"></i>
+                    <div data-i18n="Analytics">Perusahaan</div>
+                </a>
+            </li>
 
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Laporan</span>

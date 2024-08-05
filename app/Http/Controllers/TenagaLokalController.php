@@ -36,6 +36,13 @@ class TenagaLokalController extends Controller
         if ($id_perusahaan) {
             $TenagaLokal->where('id_perusahaan', $id_perusahaan);
         }
+        if ($request->has('start_date') && $request->start_date) {
+            $TenagaLokal->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $TenagaLokal->whereDate('created_at', '<=', $request->end_date);
+        }
         return DataTables::of($TenagaLokal)
             ->addColumn('action', function ($TenagaLokal) {
                 return view('admin.tkl.components.actions', compact('TenagaLokal'));

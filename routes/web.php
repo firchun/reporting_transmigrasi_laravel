@@ -11,6 +11,7 @@ use App\Http\Controllers\TenagaAsingController;
 use App\Http\Controllers\TenagaLokalController;
 use App\Http\Controllers\UserController;
 use App\Models\Bidang;
+use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 Route::middleware(['auth:web', 'verified'])->group(function () {
+    Route::get('/grafik', [App\Http\Controllers\HomeController::class, 'grafik'])->name('grafik');
 
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -35,6 +37,8 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
     //akun managemen
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    //loker managemen
+    Route::get('/lowongan-kerja/detail/{id}', [LowonganKerjaController::class, 'detail'])->name('lowongan-kerja.detail');
     //customers managemen
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
     Route::post('/customers/store',  [CustomerController::class, 'store'])->name('customers.store');
@@ -69,6 +73,11 @@ Route::middleware(['auth:web', 'role:Perusahaan'])->group(function () {
     Route::get('/laporan/perusahaan/tka', [LaporanController::class, 'perusahaan_tka'])->name('laporan.perusahaan.tka');
 });
 Route::middleware(['auth:web', 'role:Admin'])->group(function () {
+    //bidang
+    Route::get('/perusahaan', [PerusahaanController::class, 'index'])->name('perusahaan');
+    Route::get('/perusahaan/aktifkan/{id}', [PerusahaanController::class, 'aktifkan'])->name('perusahaan.aktifkan');
+    Route::get('/perusahaan/non-aktifkan/{id}', [PerusahaanController::class, 'non_aktifkan'])->name('perusahaan.non-aktifkan');
+
     //bidang
     Route::get('/bidang', [BidangController::class, 'index'])->name('bidang');
     Route::post('/bidang/store',  [BidangController::class, 'store'])->name('bidang.store');
