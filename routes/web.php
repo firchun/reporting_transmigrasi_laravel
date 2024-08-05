@@ -125,4 +125,9 @@ Route::middleware(['auth:web', 'role:Admin,Bidang'])->group(function () {
     Route::get('/laporan/admin/tkl', [LaporanController::class, 'all_tkl'])->name('laporan.admin.tkl');
     Route::get('/laporan/admin/tka', [LaporanController::class, 'all_tka'])->name('laporan.admin.tka');
     Route::get('/laporan/admin/lowongan-kerja', [LaporanController::class, 'all_lowongan_kerja'])->name('laporan.admin.lowongan-kerja');
+    //cetak laporan
+    Route::get('/laporan/admin/print-perusahaan', [LaporanController::class, 'printPerusahaan'])->name('laporan.admin.print-perusahaan');
+    Route::get('/laporan/admin/print-tenaga-asing', [LaporanController::class, 'printTenagaAsing'])->name('laporan.admin.print-tenaga-asing');
+    Route::get('/laporan/admin/print-tenaga-lokal', [LaporanController::class, 'printTenagaLokal'])->name('laporan.admin.print-tenaga-lokal');
+    Route::get('/laporan/admin/print-loker', [LaporanController::class, 'printLoker'])->name('laporan.admin.print-loker');
 });

@@ -110,23 +110,12 @@
                 ],
                 dom: 'lBfrtip',
                 buttons: [{
-                        extend: 'pdf',
-                        text: '<i class="bx bxs-file-pdf"></i> PDF',
+
+                        text: '<i class="bx bxs-file-pdf"></i> Download PDF',
                         className: 'btn-danger mx-3',
-                        orientation: 'potrait',
-                        title: '{{ $title }}',
-                        pageSize: 'A4',
-                        exportOptions: {
-                            columns: ':visible'
-                        },
-                        customize: function(doc) {
-                            doc.defaultStyle.fontSize = 8;
-                            doc.styles.tableHeader.fontSize = 8;
-                            doc.styles.tableHeader.fillColor = '#2a6908';
-
-
-                        },
-                        header: true
+                        action: function(e, dt, button, config) {
+                            window.location.href = '/laporan/admin/print-tenaga-lokal';
+                        }
                     },
                     {
                         extend: 'excelHtml5',

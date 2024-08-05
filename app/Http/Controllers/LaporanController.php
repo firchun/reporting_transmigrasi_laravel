@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Perusahaan;
+use App\Models\TenagaAsing;
+use App\Models\TenagaLokal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class LaporanController extends Controller
 {
@@ -54,5 +57,51 @@ class LaporanController extends Controller
             'title' => 'Laporan Data lowongan kerja ',
         ];
         return view('admin.laporan.all_lowongan_kerja', $data);
+    }
+
+
+    public function printPerusahaan(Request $request)
+    {
+        $perusahaan = Perusahaan::all();
+        $pdf =  \PDF::loadView('admin.laporan.pdf.print_perusahaan', [
+            'data' => $perusahaan,
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Data Perusahaan ' . date('Y-m-d H:i') . '.pdf');
+    }
+    public function printTenagaAsing(Request $request)
+    {
+        $tenagaAsing = TenagaAsing::with(['perusahaan']);
+        if (Auth::user()->role == 'Perusahaan') {
+            $perusahaan = Perusahaan::where('id_user', Auth::id())->first();
+            $tenagaAsing->where('id_perusahaan', $perusahaan->id);
+        }
+        $pdf =  \PDF::loadView('admin.laporan.pdf.print_tka', [
+            'data' => $tenagaAsing->get(),
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Data Tenaga Asing ' . date('Y-m-d H:i') . '.pdf');
+    }
+    public function printTenagaLokal(Request $request)
+    {
+        $tenagaLokal = TenagaLokal::with(['perusahaan', 'pendidikan']);
+        if (Auth::user()->role == 'Perusahaan') {
+            $perusahaan = Perusahaan::where('id_user', Auth::id())->first();
+            $tenagaLokal->where('id_perusahaan', $perusahaan->id);
+        }
+        $pdf =  \PDF::loadView('admin.laporan.pdf.print_tkl', [
+            'data' => $tenagaLokal->get(),
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Data Tenaga Lokal ' . date('Y-m-d H:i') . '.pdf');
+    }
+    public function printLoker(Request $request)
+    {
+        $perusahaan = Perusahaan::all();
+        $pdf =  \PDF::loadView('admin.laporan.pdf.print_perusahaan', [
+            'data' => $perusahaan,
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->stream('Laporan Data Perusahaan ' . date('Y-m-d H:i') . '.pdf');
     }
 }
