@@ -6,7 +6,12 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h3>{{ $title }}</h3>
+                    <div class="d-flex justify-content-between">
+
+                        <h3>{{ $title }}</h3>
+                        <a href="{{ route('lowongan-kerja.print', $loker->id) }}" class="btn btn-danger"><i
+                                class="bx bxs-file-pdf"></i> Download PDF</a>
+                    </div>
                     <hr>
                     <table class="table table-hover">
                         <tr>

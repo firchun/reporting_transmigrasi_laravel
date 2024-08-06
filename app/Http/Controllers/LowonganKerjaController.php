@@ -140,4 +140,15 @@ class LowonganKerjaController extends Controller
 
         return view('admin.lowongan_kerja.detail', $data);
     }
+    public function print($id)
+    {
+        $LowonganKerja = LowonganKerja::with(['perusahaan'])->find($id);
+        // dd($imageUrl);
+
+        $pdf =  \PDF::loadView('admin.lowongan_kerja.print', [
+            'data' => $LowonganKerja,
+        ])->setPaper('a4', 'potrait');
+
+        return $pdf->stream('Laporan detail Lowongan kerja ' . date('Y-m-d H:i') . '.pdf');
+    }
 }

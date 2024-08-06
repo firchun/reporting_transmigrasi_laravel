@@ -49,6 +49,7 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
     //laporan
     Route::get('/laporan/admin/lowongan-kerja', [LaporanController::class, 'all_lowongan_kerja'])->name('laporan.admin.lowongan-kerja');
     //cetak laporan
+    Route::get('/lowongan-kerja/print/{id}', [LowonganKerjaController::class, 'print'])->name('lowongan-kerja.print');
     Route::get('/laporan/admin/print-perusahaan', [LaporanController::class, 'printPerusahaan'])->name('laporan.admin.print-perusahaan');
     Route::get('/laporan/admin/print-tenaga-asing', [LaporanController::class, 'printTenagaAsing'])->name('laporan.admin.print-tenaga-asing');
     Route::get('/laporan/admin/print-tenaga-lokal', [LaporanController::class, 'printTenagaLokal'])->name('laporan.admin.print-tenaga-lokal');
