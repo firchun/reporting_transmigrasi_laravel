@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ public_path('css') }}/pdf/bootstrap.min.css" media="all" />
     <style>
         body {
-            font-family: 'times new roman';
+            font-family: Arial, sans-serif;
             font-size: 12px;
         }
 
@@ -41,17 +41,21 @@
 
 <body>
     <main>
-        <table style="font-size: 11px; width:100%; margin-bottom:10px;">
+        <table style=" width:100%; margin-bottom:10px;">
             <tr>
                 <td style="width: 20%" class="text-center">
                     <img style="width: 80px;" src="{{ public_path('img') }}/merauke.png">
                 </td>
                 <td class="text-center" style="width: 80%">
                     <b>
-                        <h6 class="m-0">PEMERINTAH KABUPATEN MERAUKE</h6>
-                        <h4 class="m-0">DINAS TENAGA KERJA DAN TRANSMIGRASI</h4>
-                        <i>Jalan Mayor Wiranto Merauke - Papua Selatan, Telpon (0971)321485, 321897</i><br>
-                        <i>pos-el <a href="">disnakertrans.kabmerauke@gmail.com</a></i> Kode Pos 99613
+                        <p class="m-0" style="font-size: 12px;"><b>PEMERINTAH KABUPATEN MERAUKE</b></p>
+                        <p class="m-0" style="font-size: 14px;"><b>DINAS TENAGA KERJA DAN TRANSMIGRASI</b></p>
+                        <i style="font-size: 10px;">Jalan Mayor Wiranto Merauke - Papua Selatan, Telpon
+                            (0971)321485,
+                            321897</i><br>
+                        <span style="font-size: 10px;"><i>pos-el <a
+                                    href="">disnakertrans.kabmerauke@gmail.com</a></i>
+                            Kode Pos 99613</span>
 
                     </b>
                 </td>
@@ -60,9 +64,9 @@
         </table>
         <hr>
         <center>
-            <h4>
+            <p class="font-weight:bold;">
                 Laporan Data Tenaga Lokal
-            </h4>
+            </p>
         </center>
         <br>
         <table class="table-custom">

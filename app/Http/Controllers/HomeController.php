@@ -32,6 +32,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->to('/login');
+        }
         if (Auth::user()->role != 'Perusahaan') {
             $data = [
                 'title' => 'Dashboard',
