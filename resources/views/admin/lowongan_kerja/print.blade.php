@@ -105,7 +105,8 @@
             <tr>
                 <td><strong>Brosur Lowongan perkerjaan</strong></td>
                 <td>
-                    <img src="{{ storage_path('app/public/' . $data->brosur) }}" alt="brosur" style="width: 80%;">
+                    <img src="{{ $data->brosur != null || $data->bsosur != '' ? storage_path('app/public/' . $data->brosur) : '' }}"
+                        alt="brosur" style="width: 80%;">
                 </td>
             </tr>
         </table>
