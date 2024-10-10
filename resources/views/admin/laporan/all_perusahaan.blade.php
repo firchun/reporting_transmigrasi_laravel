@@ -57,6 +57,8 @@
                                 <th>Jenis Usaha</th>
                                 <th>Tenaga Kerja Asing</th>
                                 <th>Tenaga Kerja Lokal</th>
+                                <th>Tenaga Kerja OAP</th>
+                                <th>Lowongan Kerja</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -71,6 +73,8 @@
                                 <th>Jenis Usaha</th>
                                 <th>Tenaga Kerja Asing</th>
                                 <th>Tenaga Kerja Lokal</th>
+                                <th>Tenaga Kerja OAP</th>
+                                <th>Lowongan Kerja</th>
                                 <th>Status</th>
                             </tr>
                         </tfoot>
@@ -132,6 +136,14 @@
                     {
                         data: 'jumlah_tkl',
                         name: 'jumlah_tkl'
+                    },
+                    {
+                        data: 'jumlah_oap',
+                        name: 'jumlah_oap'
+                    },
+                    {
+                        data: 'jumlah_loker',
+                        name: 'jumlah_loker'
                     },
                     {
                         data: 'aktif',

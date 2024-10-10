@@ -123,6 +123,14 @@
                     success: function(response) {
                         alert(response.message);
                         $('#datatable-tka').DataTable().ajax.reload();
+                        $('#createSponsor').val('');
+                        $('#createTanggalKitas').val('');
+                        $('#createNoKitas').val('');
+                        $('#createNoPassport').val('');
+                        $('#createJabatan').val('');
+                        $('#createKebangsaan').val('');
+                        $('#createNama').val('');
+                        $('#createImta .input-group:gt(0)').remove();
                         $('#create').modal('hide');
                     },
                     error: function(xhr) {

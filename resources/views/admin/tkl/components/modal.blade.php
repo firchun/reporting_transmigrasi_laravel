@@ -103,7 +103,7 @@
                     <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id ?? '' }}">
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Nama</label>
-                        <input type="text" class="form-control" name="nama" required>
+                        <input type="text" class="form-control" name="nama" required id="createNama">
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Jenis Kelamin</label>
@@ -122,11 +122,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Mulai Kerja</label>
-                        <input type="date" class="form-control" name="mulai_kerja" required>
+                        <input type="date" class="form-control" name="mulai_kerja" required
+                            id="createMulaiKerja">
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">No. Kartu Kuning</label>
-                        <input type="text" class="form-control" name="no_kartu_kuning" required>
+                        <input type="text" class="form-control" name="no_kartu_kuning" required
+                            id="createNoKartuKuning">
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Tenaga Kerja</label>
@@ -147,19 +149,21 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="formTKANama" class="form-label">Tempat Lahir</label>
-                                <input type="text" class="form-control" name="tempat_lahir" required>
+                                <input type="text" class="form-control" name="tempat_lahir" required
+                                    id="createTempatLahir">
                             </div>
                         </div>
                         <div class="col">
                             <div class="mb-3">
                                 <label for="formTKANama" class="form-label">Tanggal Lahir</label>
-                                <input type="date" class="form-control" name="tanggal_lahir" required>
+                                <input type="date" class="form-control" name="tanggal_lahir" required
+                                    id="createTanggalLahir">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Jabatan</label>
-                        <input type="text" class="form-control" name="jabatan" required>
+                        <input type="text" class="form-control" name="jabatan" required id="createJabatan">
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">LPTKS</label>

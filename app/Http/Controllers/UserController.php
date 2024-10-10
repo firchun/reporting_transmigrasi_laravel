@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Imta;
+use App\Models\LowonganKerja;
+use App\Models\Perusahaan;
+use App\Models\TenagaAsing;
+use App\Models\TenagaLokal;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -101,6 +106,7 @@ class UserController extends Controller
                 'email' => $request->input('email'),
                 'role' => $request->input('role'),
                 'password' => Hash::make('password'),
+                'email_verified_at' => now()
             ];
 
             User::create($usersData);
@@ -121,14 +127,46 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
+        // Cari user berdasarkan ID
         $user = User::find($id);
 
+        // Cek apakah user ada atau tidak
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
+        // Cari perusahaan yang terkait dengan user
+        $perusahaan = Perusahaan::where('id_user', $id)->get();
+
+        // Loop melalui setiap perusahaan yang dimiliki user
+        foreach ($perusahaan as $item) {
+            // Cari tenaga asing yang terkait dengan perusahaan
+            $tenagaAsing = TenagaAsing::where('id_perusahaan', $item->id)->get();
+
+            // Hapus data IMTA yang terkait dengan tenaga asing
+            foreach ($tenagaAsing as $tenagaAsingItem) {
+                Imta::where('id_tenaga_asing', $tenagaAsingItem->id)->delete();
+            }
+
+            // Hapus tenaga asing itu sendiri
+            TenagaAsing::where('id_perusahaan', $item->id)->delete();
+
+            // Hapus tenaga lokal terkait
+            TenagaLokal::where('id_perusahaan', $item->id)->delete();
+
+            // Hapus lowongan kerja terkait
+            LowonganKerja::where('id_perusahaan', $item->id)->delete();
+        }
+
+        // Hapus perusahaan terkait
+        foreach ($perusahaan as $item) {
+            $item->delete();
+        }
+
+        // Hapus user itu sendiri
         $user->delete();
 
+        // Kembalikan respons sukses
         return response()->json(['message' => 'User deleted successfully']);
     }
 }

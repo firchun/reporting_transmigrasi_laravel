@@ -43,12 +43,12 @@
                 <form id="createUserForm">
                     <div class="mb-3">
                         <label for="formCustomerName" class="form-label">Nama Pendidikan</label>
-                        <input type="text" class="form-control" id="formCustomerNamaPendidikan"
-                            name="nama_pendidikan" required>
+                        <input type="text" class="form-control" id="formCreateNamaPendidikan" name="nama_pendidikan"
+                            required>
                     </div>
                     <div class="mb-3">
-                        <label for="formCustomerPhone" class="form-label">Kepanjangan</label>
-                        <input type="text" class="form-control" id="formCustomerKepanjangan" name="kepanjangan"
+                        <label for="formCreatePhone" class="form-label">Kepanjangan</label>
+                        <input type="text" class="form-control" id="formCreateKepanjangan" name="kepanjangan"
                             value="-" required>
                     </div>
 

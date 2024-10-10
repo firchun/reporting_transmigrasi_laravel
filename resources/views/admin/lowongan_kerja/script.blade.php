@@ -49,7 +49,7 @@
                     url: '/lowongan-kerja/edit/' + id,
                     success: function(response) {
                         $('#formUpdateCustomerId').val(response.id);
-                        $('#formUpdateCustomerIdPerusahaan').val(response.id);
+                        $('#formUpdateCustomerIdPerusahaan').val(response.id_perusahaan);
                         $('#formUpdateCustomerPosisi').val(response.posisi);
                         $('#formUpdateCustomerTanggalBuka').val(response.tanggal_buka);
                         $('#formUpdateCustomerTanggalTutup').val(response.tanggal_tutup);
@@ -102,6 +102,11 @@
                     },
                     success: function(response) {
                         alert(response.message);
+                        $('#createDeskripsiPekerjaan').val('');
+                        $('#createPengirimanBerkas').val('');
+                        $('#createKualifikasi').val('');
+                        $('#createTanggalPenutupan').val('');
+                        $('#createJabatan').val('');
                         $('#formCustomerName').val('');
                         $('#datatable-loker').DataTable().ajax.reload();
                         $('#create').modal('hide');

@@ -46,11 +46,11 @@
                 <form id="createUserForm">
                     <div class="mb-3">
                         <label for="formUserName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="formUserName" name="name" required>
+                        <input type="text" class="form-control" id="formCreateUserName" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="formUserEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="formUserEmail" name="email" required>
+                        <input type="email" class="form-control" id="formCreateUserEmail" name="email" required>
                     </div>
                     @if ($role == 'Bidang')
                         <div class="mb-3">

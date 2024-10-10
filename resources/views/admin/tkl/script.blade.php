@@ -120,6 +120,13 @@
                     success: function(response) {
                         alert(response.message);
                         $('#datatable-tkl').DataTable().ajax.reload();
+                        $('#createNama').val('');
+                        $('#createMulaiKerja').val('');
+                        $('#createNoKartuKuning').val('');
+                        $('#createNoKartuKuning').val('');
+                        $('#createTempatLahir').val('');
+                        $('#createTanggalLahir').val('');
+                        $('#createJabatan').val('');
                         $('#create').modal('hide');
                     },
                     error: function(xhr) {

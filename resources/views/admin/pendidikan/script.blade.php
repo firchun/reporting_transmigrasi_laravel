@@ -82,8 +82,8 @@
                     },
                     success: function(response) {
                         alert(response.message);
-                        $('#formCustomerNamaPendidikan').val('');
-                        $('#formCustomerKepanjangan').val('');
+                        $('#formCreateNamaPendidikan').val('');
+                        $('#formCreateKepanjangan').val('-');
                         $('#datatable-pendidikan').DataTable().ajax.reload();
                         $('#create').modal('hide');
                     },

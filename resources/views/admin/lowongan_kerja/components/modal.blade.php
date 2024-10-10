@@ -74,44 +74,44 @@
                     <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id }}">
                     <div class="mb-3">
                         <label for="formCustomerName" class="form-label">Upload Brosur </label>
-                        <input type="file" class="form-control" id="formCustomerName" name="brosur">
+                        <input type="file" class="form-control" id="formCustomerName" name="brosur" id="createFile">
                     </div>
                     <div class="mb-3">
                         <label for="formCustomerName" class="form-label">Posisi/Jabatan </label>
                         <input type="text" class="form-control" id="formCustomerName" name="posisi"
-                            placeholder="Jabatan" required>
+                            placeholder="Jabatan" required id="createJabatan">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="formCustomerName" class="form-label">Tanggal Pembukaan </label>
                                 <input type="date" class="form-control" id="formCustomerName" name="tanggal_buka"
-                                    required>
+                                    required id="createTamggalPembukaan">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="formCustomerName" class="form-label">Tanggal Penutupan </label>
                                 <input type="date" class="form-control" id="formCustomerName"
-                                    name="tanggal_tutup" required>
+                                    name="tanggal_tutup" required id="createTanggalPenutupan">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label>Kualifikasi</label>
-                        <textarea class="form-control" name="kualifikasi"></textarea>
+                        <textarea class="form-control" name="kualifikasi" id="createKualifikasi"></textarea>
                     </div>
                     <div class="mb-3">
                         <label>Persyaratan</label>
-                        <textarea class="form-control" name="persyaratan"></textarea>
+                        <textarea class="form-control" name="persyaratan" id="createPersyaratan"></textarea>
                     </div>
                     <div class="mb-3">
                         <label>Pengiriman Berkas</label>
-                        <textarea class="form-control" name="pengiriman_berkas"></textarea>
+                        <textarea class="form-control" name="pengiriman_berkas" id="createPengirimanBerkas"></textarea>
                     </div>
                     <div class="mb-3">
                         <label>Deskripsi Pekerjaan</label>
-                        <textarea class="form-control" name="deskripsi_pekerjaan"></textarea>
+                        <textarea class="form-control" name="deskripsi_pekerjaan" id="createDeskripsiPekerjaan"></textarea>
                     </div>
                 </form>
             </div>

@@ -83,7 +83,7 @@
                     <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id ?? '' }}">
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Nama</label>
-                        <input type="text" class="form-control " name="nama" required>
+                        <input type="text" class="form-control " name="nama" required id="createNama">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -98,30 +98,34 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="formTKANama" class="form-label">Kebangsaan</label>
-                                <input type="text" class="form-control" name="kebangsaan" required>
+                                <input type="text" class="form-control" name="kebangsaan" required
+                                    id="createKebangsaan">
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Jabatan</label>
-                        <input type="text" class="form-control" name="jabatan" required>
+                        <input type="text" class="form-control" name="jabatan" required id="createJabatan">
                     </div>
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">No. Passport</label>
-                        <input type="text" class="form-control" name="no_passport" required>
+                        <input type="text" class="form-control" name="no_passport" required
+                            id="createNoPassport">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
 
                             <div class="mb-3">
                                 <label for="formTKANama" class="form-label">No. KITAS</label>
-                                <input type="text" class="form-control" name="no_kitas" required>
+                                <input type="text" class="form-control" name="no_kitas" required
+                                    id="createNoKitas">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="formTKANama" class="form-label">Tanggal berlaku KITAS</label>
-                                <input type="date" class="form-control" name="tanggal_berlaku_kitas" required>
+                                <input type="date" class="form-control" name="tanggal_berlaku_kitas" required
+                                    id="createTanggalKitas">
                             </div>
                         </div>
                     </div>
@@ -136,7 +140,7 @@
 
                     <div class="mb-3">
                         <label for="formTKANama" class="form-label">Sponsor</label>
-                        <input type="text" class="form-control" name="sponsor" required>
+                        <input type="text" class="form-control" name="sponsor" required id="createSponsor">
                     </div>
                 </form>
             </div>

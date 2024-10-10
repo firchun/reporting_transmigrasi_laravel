@@ -81,6 +81,8 @@
                     <th>Jenis Usaha</th>
                     <th>Tenaga Kerja Asing</th>
                     <th>Tenaga Kerja Lokal</th>
+                    <th>Tenaga Kerja OAP</th>
+                    <th>Lowongan Kerja</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -95,15 +97,15 @@
                         <td>{{ $item->jenis_usaha }}</td>
                         <td>{{ App\Models\TenagaAsing::where('id_perusahaan', $item->id)->count() }}</td>
                         <td>{{ App\Models\TenagaLokal::where('id_perusahaan', $item->id)->count() }}</td>
+                        <td>{{ App\Models\TenagaLokal::where('id_perusahaan', $item->id)->where('tenaga_kerja', 'OAP')->count() }}
+                        </td>
+                        <td>{{ App\Models\LowonganKerja::where('id_perusahaan', $item->id)->count() }}</td>
                         <td>{{ $item->aktif == 1 ? 'Aktif' : 'Non-aktif' }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-
-
     </main>
-
 </body>
 
 </html>

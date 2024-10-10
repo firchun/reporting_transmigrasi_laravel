@@ -145,8 +145,8 @@
                     },
                     success: function(response) {
                         alert(response.message);
-                        $('#userssModalLabel').text('Edit User');
-                        $('#formUserName').val('');
+                        $('#formCreateUserName').val('');
+                        $('#formCreateUserEmail').val('');
                         $('#datatable-users').DataTable().ajax.reload();
                         $('#create').modal('hide');
                     },

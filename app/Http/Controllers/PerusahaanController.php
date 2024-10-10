@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LowonganKerja;
 use App\Models\Perusahaan;
 use App\Models\TenagaAsing;
 use App\Models\TenagaLokal;
@@ -38,11 +39,19 @@ class PerusahaanController extends Controller
 
             ->addColumn('jumlah_tka', function ($Perusahaan) {
                 $tka = TenagaAsing::where('id_perusahaan', $Perusahaan->id)->count();
-                return $tka . ' Karyawan';
+                return $tka;
             })
             ->addColumn('jumlah_tkl', function ($Perusahaan) {
                 $tkl = TenagaLokal::where('id_perusahaan', $Perusahaan->id)->count();
-                return $tkl . ' Karyawan';
+                return $tkl;
+            })
+            ->addColumn('jumlah_oap', function ($Perusahaan) {
+                $tkl = TenagaLokal::where('id_perusahaan', $Perusahaan->id)->where('tenaga_kerja', 'OAP')->count();
+                return $tkl;
+            })
+            ->addColumn('jumlah_loker', function ($Perusahaan) {
+                $loker = LowonganKerja::where('id_perusahaan', $Perusahaan->id)->count();
+                return $loker;
             })
             ->addColumn('action', function ($Perusahaan) {
                 $aktif = '<a href="' . route('perusahaan.non-aktifkan', $Perusahaan->id) . '" class="btn btn-danger">Non aktifkan</a>';
@@ -50,7 +59,7 @@ class PerusahaanController extends Controller
                 return $Perusahaan->aktif == 1 ? $aktif : $non_aktif;
             })
 
-            ->rawColumns(['jumlah_tka', 'jumlah_tkl', 'action'])
+            ->rawColumns(['jumlah_tka', 'jumlah_tkl', 'action', 'jumlah_oap', 'jumlah_loker'])
             ->make(true);
     }
     public function store(Request $request)

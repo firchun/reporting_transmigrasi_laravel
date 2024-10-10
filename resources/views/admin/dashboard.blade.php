@@ -35,20 +35,20 @@
                 'color' => 'primary',
                 'icon' => 'user',
             ])
-            @include('admin.dashboard_component.card1', [
+            {{-- @include('admin.dashboard_component.card1', [
                 'count' => $data_bidang,
                 'title' => 'Bidang',
                 'subtitle' => 'Total bidang',
                 'color' => 'warning',
                 'icon' => 'folder',
-            ])
-            @include('admin.dashboard_component.card1', [
+            ]) --}}
+            {{-- @include('admin.dashboard_component.card1', [
                 'count' => $data_pendidikan,
                 'title' => 'Pendidikan',
                 'subtitle' => 'Total data pendidikan',
                 'color' => 'warning',
                 'icon' => 'folder',
-            ])
+            ]) --}}
             @include('admin.dashboard_component.card1', [
                 'count' => $loker,
                 'title' => 'Lowongan Kerja',
