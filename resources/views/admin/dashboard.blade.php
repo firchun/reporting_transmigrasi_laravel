@@ -13,7 +13,6 @@
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-
                 <canvas id="barChart" width="200" height="100"></canvas>
             </div>
         </div>

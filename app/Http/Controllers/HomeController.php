@@ -47,12 +47,19 @@ class HomeController extends Controller
             ];
         } else {
             $perusahaan = Perusahaan::where('id_user', Auth::id())->first();
-            $data = [
-                'title' => 'Dashboard',
-                'tkl' => TenagaLokal::where('id_perusahaan', $perusahaan->id)->count(),
-                'tka' => TenagaAsing::where('id_perusahaan', $perusahaan->id)->count(),
-                'loker' => LowonganKerja::where('id_perusahaan', $perusahaan->id)->count(),
-            ];
+            if ($perusahaan) {
+
+                $data = [
+                    'title' => 'Dashboard',
+                    'tkl' => TenagaLokal::where('id_perusahaan', $perusahaan->id)->count(),
+                    'tka' => TenagaAsing::where('id_perusahaan', $perusahaan->id)->count(),
+                    'loker' => LowonganKerja::where('id_perusahaan', $perusahaan->id)->count(),
+                ];
+            } else {
+                $data = [
+                    'title' => 'Dashboard'
+                ];
+            }
         }
         return view('admin.dashboard', $data);
     }
