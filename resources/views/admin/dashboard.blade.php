@@ -73,6 +73,13 @@
                 'color' => 'warning',
                 'icon' => 'user',
             ])
+            @include('admin.dashboard_component.card1', [
+                'count' => $tka,
+                'title' => 'TKA',
+                'subtitle' => 'Tenaga Kerja Asing',
+                'color' => 'warning',
+                'icon' => 'user',
+            ])
 
 
         </div>
