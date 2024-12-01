@@ -26,6 +26,24 @@
             'icon' => 'folder',
         ])
     </div>
+    <div class="row justify-content-center align-items-center">
+        @include('admin.dashboard_component.card1', [
+            'count' => $oap,
+            'title' => 'Tenaga Lokal OAP',
+            'subtitle' => 'Total OAP',
+            'color' => 'warning',
+            'icon' => 'user',
+        ])
+
+        @include('admin.dashboard_component.card1', [
+            'count' => $non_oap,
+            'title' => 'Tenaga Lokal NON OAP',
+            'subtitle' => 'Total NON OAP',
+            'color' => 'warning',
+            'icon' => 'user',
+        ])
+
+    </div>
 @else
     <div class="row justify-content-center">
         <div class="col-md-8">

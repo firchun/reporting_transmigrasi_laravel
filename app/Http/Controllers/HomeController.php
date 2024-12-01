@@ -57,6 +57,8 @@ class HomeController extends Controller
                     'tkl' => TenagaLokal::where('id_perusahaan', $perusahaan->id)->count(),
                     'tka' => TenagaAsing::where('id_perusahaan', $perusahaan->id)->count(),
                     'loker' => LowonganKerja::where('id_perusahaan', $perusahaan->id)->count(),
+                    'oap' => TenagaLokal::where('id_perusahaan', $perusahaan->id)->where('tenaga_kerja', 'OAP')->count(),
+                    'non_oap' => TenagaLokal::where('id_perusahaan', $perusahaan->id)->where('tenaga_kerja', 'NON-OAP')->count(),
                 ];
             } else {
                 $data = [

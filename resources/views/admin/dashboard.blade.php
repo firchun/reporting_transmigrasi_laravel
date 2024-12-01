@@ -57,32 +57,7 @@
             ])
 
         </div>
-        <div class="row justify-content-center align-items-center">
-            @include('admin.dashboard_component.card1', [
-                'count' => $oap,
-                'title' => 'Tenaga Lokal OAP',
-                'subtitle' => 'Total OAP',
-                'color' => 'warning',
-                'icon' => 'user',
-            ])
-
-            @include('admin.dashboard_component.card1', [
-                'count' => $non_oap,
-                'title' => 'Tenaga Lokal NON OAP',
-                'subtitle' => 'Total NON OAP',
-                'color' => 'warning',
-                'icon' => 'user',
-            ])
-            @include('admin.dashboard_component.card1', [
-                'count' => $tka,
-                'title' => 'TKA',
-                'subtitle' => 'Tenaga Kerja Asing',
-                'color' => 'warning',
-                'icon' => 'user',
-            ])
-
-
-        </div>
+        gk 
     @elseif(Auth::user()->role == 'Perusahaan')
         @include('admin.dashboard_component.perusahaan')
     @endif
