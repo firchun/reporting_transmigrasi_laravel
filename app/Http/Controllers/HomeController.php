@@ -44,6 +44,8 @@ class HomeController extends Controller
                 'data_bidang' => Bidang::count(),
                 'data_pendidikan' => Pendidikan::count(),
                 'loker' => LowonganKerja::count(),
+                'oap' => TenagaLokal::where('tenaga_kerja', 'OAP')->count(),
+                'non_oap' => TenagaLokal::where('tenaga_kerja', 'NON-OAP')->count(),
             ];
         } else {
             $perusahaan = Perusahaan::where('id_user', Auth::id())->first();
